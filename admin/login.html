@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Login — Demor Hair Space</title>
+<link rel="icon" href="../assets/images/logo.png" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+<div class="login-shell">
+  <div class="login-box">
+    <img src="../assets/images/logo.png" alt="Demor Hair Space" />
+    <h2>Admin Login</h2>
+    <div class="form-grid">
+      <div>
+        <label>Email</label>
+        <input type="email" id="login-email" class="input" />
+      </div>
+      <div>
+        <label>Password</label>
+        <input type="password" id="login-password" class="input" />
+      </div>
+    </div>
+    <button id="login-btn" class="btn btn-gold" style="width:100%; justify-content:center;">Log In</button>
+    <p id="login-error" style="color:#b00020; font-size:0.85rem; margin-top:14px; display:none;"></p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/config.js"></script>
+<script src="../js/supabase-client.js"></script>
+<script>
+document.getElementById("login-btn").addEventListener("click", async () => {
+  const email = document.getElementById("login-email").value.trim();
+  const password = document.getElementById("login-password").value;
+  const errorEl = document.getElementById("login-error");
+  errorEl.style.display = "none";
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+  if (error) {
+    errorEl.textContent = "Incorrect email or password.";
+    errorEl.style.display = "block";
+    return;
+  }
+  window.location.href = "bookings.html";
+});
+</script>
+</body>
+</html>

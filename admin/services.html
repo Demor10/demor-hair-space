@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services — Admin — Demor Hair Space</title>
+<link rel="icon" href="../assets/images/logo.png" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="brand-mini">Demor Admin</div>
+    <a href="bookings.html">Bookings</a>
+    <a href="services.html" class="active">Services & Prices</a>
+    <a href="hours.html">Hours & Availability</a>
+    <button id="logout-btn" class="logout">Log out</button>
+  </aside>
+
+  <main class="admin-main">
+    <h1>Services & Prices</h1>
+    <p class="subtitle">Add haircut styles, set prices, and upload photos.</p>
+
+    <div class="admin-card">
+      <h3 style="margin-top:0; font-family:var(--font-display); color:var(--navy-900);">Add a new style</h3>
+      <div class="form-grid">
+        <div>
+          <label>Name</label>
+          <input type="text" id="new-name" class="input" placeholder="e.g. Classic Fade" />
+        </div>
+        <div class="form-row">
+          <div>
+            <label>Price (₦)</label>
+            <input type="number" id="new-price" class="input" placeholder="3500" />
+          </div>
+          <div>
+            <label>Photo</label>
+            <input type="file" id="new-image" class="input" accept="image/*" />
+          </div>
+        </div>
+        <div>
+          <label>Description</label>
+          <input type="text" id="new-desc" class="input" placeholder="Short description shown to customers" />
+        </div>
+      </div>
+      <button id="add-service-btn" class="btn btn-gold">Add Service</button>
+      <p id="add-error" style="color:#b00020; font-size:0.85rem; margin-top:10px; display:none;"></p>
+    </div>
+
+    <div class="admin-card">
+      <table class="admin-table" id="services-table">
+        <thead>
+          <tr><th>Photo</th><th>Name</th><th>Price</th><th>Active</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="services-body">
+          <tr><td colspan="5">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/config.js"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/admin-services.js"></script>
+</body>
+</html>

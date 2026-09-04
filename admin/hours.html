@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hours — Admin — Demor Hair Space</title>
+<link rel="icon" href="../assets/images/logo.png" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="brand-mini">Demor Admin</div>
+    <a href="bookings.html">Bookings</a>
+    <a href="services.html">Services & Prices</a>
+    <a href="hours.html" class="active">Hours & Availability</a>
+    <button id="logout-btn" class="logout">Log out</button>
+  </aside>
+
+  <main class="admin-main">
+    <h1>Hours & Availability</h1>
+    <p class="subtitle">Set your regular weekly hours, or block off / adjust specific dates.</p>
+
+    <div class="admin-card">
+      <h3 style="margin-top:0; font-family:var(--font-display); color:var(--navy-900);">Weekly hours</h3>
+      <table class="admin-table" id="weekly-table">
+        <thead>
+          <tr><th>Day</th><th>Open</th><th>Opens at</th><th>Normal closes</th><th>Extended closes</th><th></th></tr>
+        </thead>
+        <tbody id="weekly-body"><tr><td colspan="6">Loading…</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="admin-card">
+      <h3 style="margin-top:0; font-family:var(--font-display); color:var(--navy-900);">Add a date override</h3>
+      <p class="muted" style="color:var(--ink-600); font-size:0.85rem;">Use this for one-off closures (e.g. a holiday) or a special extended day.</p>
+      <div class="form-row">
+        <div>
+          <label>Date</label>
+          <input type="date" id="override-date" class="input" />
+        </div>
+        <div>
+          <label>Status</label>
+          <select id="override-open" class="input">
+            <option value="true">Open (custom hours)</option>
+            <option value="false">Closed all day</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row" id="override-times">
+        <div>
+          <label>Opens at</label>
+          <input type="time" id="override-open-time" class="input" value="07:00" />
+        </div>
+        <div>
+          <label>Normal closes</label>
+          <input type="time" id="override-normal-close" class="input" value="18:00" />
+        </div>
+      </div>
+      <label>Extended closes</label>
+      <input type="time" id="override-extended-close" class="input" value="22:00" style="max-width:220px;" />
+      <br><br>
+      <button id="add-override-btn" class="btn btn-gold">Save Override</button>
+    </div>
+
+    <div class="admin-card">
+      <h3 style="margin-top:0; font-family:var(--font-display); color:var(--navy-900);">Upcoming overrides</h3>
+      <table class="admin-table" id="overrides-table">
+        <thead><tr><th>Date</th><th>Status</th><th>Hours</th><th></th></tr></thead>
+        <tbody id="overrides-body"><tr><td colspan="4">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/config.js"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/admin-hours.js"></script>
+</body>
+</html>

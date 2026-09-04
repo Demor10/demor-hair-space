@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bookings — Admin — Demor Hair Space</title>
+<link rel="icon" href="../assets/images/logo.png" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="brand-mini">Demor Admin</div>
+    <a href="bookings.html" class="active">Bookings</a>
+    <a href="services.html">Services & Prices</a>
+    <a href="hours.html">Hours & Availability</a>
+    <button id="logout-btn" class="logout">Log out</button>
+  </aside>
+
+  <main class="admin-main">
+    <h1>Bookings</h1>
+    <p class="subtitle">Verify payments, confirm, or cancel appointments.</p>
+
+    <div class="admin-card">
+      <label style="font-size:0.85rem; color:var(--ink-600);">Filter by date</label>
+      <input type="date" id="filter-date" class="input" style="max-width:220px; margin-top:6px;" />
+    </div>
+
+    <div class="admin-card">
+      <table class="admin-table" id="bookings-table">
+        <thead>
+          <tr>
+            <th>Date</th><th>Time</th><th>Customer</th><th>Service</th>
+            <th>Price</th><th>Payment</th><th>Status</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="bookings-body">
+          <tr><td colspan="8">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/config.js"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/admin-bookings.js"></script>
+</body>
+</html>
