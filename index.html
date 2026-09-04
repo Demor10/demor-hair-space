@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Demor Hair Space — Book Your Cut</title>
+<meta name="description" content="Demor Hair Space — mobile barbing, consultation, and style. Book your appointment online." />
+<link rel="icon" href="assets/images/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/images/logo.png" alt="Demor Hair Space logo" />
+      <span class="brand-name">Demor Hair Space<small>Mobile · Consult · Style</small></span>
+    </a>
+    <nav class="main-nav">
+      <a href="services.html">Services</a>
+      <a href="my-bookings.html">My Bookings</a>
+      <a href="#contact">Contact</a>
+      <a class="btn btn-gold" href="services.html">Book Now</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow-mark"><span class="line"></span> Precision barbing, on your time</div>
+      <h1>A sharp cut, booked in under a minute.</h1>
+      <p class="lede">Demor Hair Space brings skilled barbing and real consultation to every appointment. Pick a style, choose a time that works, and we'll take it from there.</p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="services.html">Book an appointment</a>
+        <a class="btn btn-outline" href="#contact">Call or WhatsApp</a>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <div class="badge-row"><span>Standard hours</span><span>7:00 AM – 6:00 PM</span></div>
+      <div class="badge-row"><span>Extended hours</span><span>7:00 PM – 10:00 PM (+20%)</span></div>
+      <div class="badge-row"><span>Appointment length</span><span>45 minutes</span></div>
+      <div class="badge-row"><span>Cancel / reschedule</span><span>Up to 30 min prior</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Choose your style</div>
+      <h2>Services & pricing</h2>
+      <p>Every style is priced clearly upfront. Pick one to see photos and start your booking.</p>
+    </div>
+    <div class="services-grid" id="services-grid">
+      <!-- Populated from Supabase in the full build. Placeholder cards below. -->
+      <a class="service-card" href="services.html">
+        <div class="thumb">Photo</div>
+        <div class="body">
+          <h3>Classic Fade</h3>
+          <div class="price">₦3,500</div>
+          <p class="desc">Clean taper with a sharp finish.</p>
+        </div>
+      </a>
+      <a class="service-card" href="services.html">
+        <div class="thumb">Photo</div>
+        <div class="body">
+          <h3>Full Grooming</h3>
+          <div class="price">₦6,000</div>
+          <p class="desc">Haircut, beard shape-up, and line-up.</p>
+        </div>
+      </a>
+      <a class="service-card" href="services.html">
+        <div class="thumb">Photo</div>
+        <div class="body">
+          <h3>Kids Cut</h3>
+          <div class="price">₦2,500</div>
+          <p class="desc">Patient, tidy cuts for the little ones.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">How it works</div>
+      <h2>Three steps to your next cut</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>1. Pick a style</h3>
+        <p>Browse real photos and prices, or ask the assistant to recommend one.</p>
+      </div>
+      <div class="step">
+        <h3>2. Choose a time</h3>
+        <p>Only genuinely open 45-minute slots are shown — no double-booking.</p>
+      </div>
+      <div class="step">
+        <h3>3. Confirm & pay</h3>
+        <p>Pay online by transfer or in person. You'll get an email once it's confirmed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-band" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <h2>Get in touch</h2>
+      <ul class="contact-list">
+        <li><span>WhatsApp</span><span>0902 912 2629</span></li>
+        <li><span>Calls</span><span>0903 945 9762</span></li>
+        <li><span>Email</span><span>demorhairspace@gmail.com</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Working hours</h2>
+      <table class="hours-table">
+        <tr><td>Monday – Sunday</td><td>7:00 AM – 6:00 PM</td></tr>
+        <tr><td>Extended (on request)</td><td>7:00 PM – 10:00 PM · +20%</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; <span id="year"></span> Demor Hair Space. All rights reserved.</div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
