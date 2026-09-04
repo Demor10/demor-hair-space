@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book an Appointment — Demor Hair Space</title>
+<link rel="icon" href="assets/images/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/booking.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/images/logo.png" alt="Demor Hair Space logo" />
+      <span class="brand-name">Demor Hair Space<small>Mobile · Consult · Style</small></span>
+    </a>
+    <nav class="main-nav">
+      <a href="services.html">Services</a>
+      <a href="my-bookings.html">My Bookings</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <div class="wrap" style="max-width:720px;">
+
+    <div id="service-summary" class="booking-service-card">Loading service…</div>
+
+    <!-- STEP 1: Date + slot picker -->
+    <div id="step-slots" class="booking-step">
+      <h3>1. Pick a date & time</h3>
+      <input type="date" id="date-input" class="input" />
+      <div id="slots-container" class="slots-grid"></div>
+      <p id="slots-msg" class="muted"></p>
+    </div>
+
+    <!-- STEP 2: Customer details -->
+    <div id="step-details" class="booking-step" style="display:none;">
+      <h3>2. Your details</h3>
+      <label>Full name</label>
+      <input type="text" id="customer-name" class="input" placeholder="Your full name" />
+      <label>Email</label>
+      <input type="email" id="customer-email" class="input" placeholder="you@example.com" />
+      <label>Phone number</label>
+      <input type="tel" id="customer-phone" class="input" placeholder="0902 912 2629" />
+    </div>
+
+    <!-- STEP 3: Payment -->
+    <div id="step-payment" class="booking-step" style="display:none;">
+      <h3>3. Payment</h3>
+      <div class="pay-options">
+        <label class="pay-option">
+          <input type="radio" name="payment" value="in_person" checked />
+          Pay in person at the appointment
+        </label>
+        <label class="pay-option">
+          <input type="radio" name="payment" value="online_transfer" />
+          Pay online now (bank transfer)
+        </label>
+      </div>
+
+      <div id="transfer-details" style="display:none;" class="transfer-box">
+        <p><strong>Bank:</strong> OPay</p>
+        <p><strong>Account name:</strong> Adebulu Patrick A</p>
+        <p><strong>Account number:</strong> 9029122629</p>
+        <p><strong>Amount to pay:</strong> <span id="amount-to-pay">—</span></p>
+        <label>Upload proof of payment (screenshot)</label>
+        <input type="file" id="payment-proof" accept="image/*" class="input" />
+        <p class="muted">Your booking will show as "pending" until we verify the transfer and confirm it — you'll get an email once it's confirmed.</p>
+      </div>
+    </div>
+
+    <button id="confirm-btn" class="btn btn-gold" style="display:none; margin-top:24px;">Confirm Booking</button>
+    <p id="submit-error" class="muted" style="color:#b00020; display:none;"></p>
+
+    <div id="success-box" style="display:none;" class="success-box">
+      <h3>Booking received 🎉</h3>
+      <p id="success-msg"></p>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; <span id="year"></span> Demor Hair Space. All rights reserved.</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/book.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
