@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services & Pricing — Demor Hair Space</title>
+<link rel="icon" href="assets/images/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/images/logo.png" alt="Demor Hair Space logo" />
+      <span class="brand-name">Demor Hair Space<small>Mobile · Consult · Style</small></span>
+    </a>
+    <nav class="main-nav">
+      <a href="services.html">Services</a>
+      <a href="my-bookings.html">My Bookings</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Choose your style</div>
+      <h2>Services & pricing</h2>
+      <p>Pick a style to see details and start your booking. Prices shown are for standard hours (7 AM–6 PM); extended hours (7–10 PM) add 20%.</p>
+    </div>
+    <p id="services-empty" style="display:none; color:#4a4e5a;">
+      No services have been added yet. Once the admin panel is live, styles and prices will appear here automatically.
+    </p>
+    <div class="services-grid" id="services-grid">
+      <p style="color:#4a4e5a;">Loading services…</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; <span id="year"></span> Demor Hair Space. All rights reserved.</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/services.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
