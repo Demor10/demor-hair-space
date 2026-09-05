@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Bookings — Demor Hair Space</title>
+<link rel="icon" href="assets/images/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/booking.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/images/logo.png" alt="Demor Hair Space logo" />
+      <span class="brand-name">Demor Hair Space<small>Mobile · Consult · Style</small></span>
+    </a>
+    <nav class="main-nav">
+      <a href="services.html">Services</a>
+      <a href="my-bookings.html">My Bookings</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <div class="wrap" style="max-width:720px;">
+
+    <div class="booking-step">
+      <h3>Find your booking</h3>
+      <p class="muted">Enter the email and phone number you used when booking.</p>
+      <label>Email</label>
+      <input type="email" id="lookup-email" class="input" placeholder="you@example.com" />
+      <label>Phone number</label>
+      <input type="tel" id="lookup-phone" class="input" placeholder="0902 912 2629" />
+      <button id="lookup-btn" class="btn btn-gold" style="margin-top:16px;">Find My Bookings</button>
+      <p id="lookup-error" style="color:#b00020; display:none; margin-top:10px;"></p>
+    </div>
+
+    <div id="results-container"></div>
+
+    <!-- Reschedule panel (hidden until a booking chooses to reschedule) -->
+    <div id="reschedule-panel" class="booking-step" style="display:none;">
+      <h3>Pick a new date & time</h3>
+      <input type="date" id="resched-date-input" class="input" />
+      <div id="resched-slots-container" class="slots-grid"></div>
+      <p id="resched-slots-msg" class="muted"></p>
+      <button id="resched-confirm-btn" class="btn btn-gold" style="margin-top:16px; display:none;">Confirm New Time</button>
+      <button id="resched-cancel-btn" class="btn-sm" style="margin-top:16px;">Cancel</button>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; <span id="year"></span> Demor Hair Space. All rights reserved.</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/my-bookings.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
