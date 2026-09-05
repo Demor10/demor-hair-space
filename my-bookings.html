@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/chatbot.css" />
 <link rel="stylesheet" href="css/booking.css" />
 </head>
 <body>
@@ -35,7 +36,7 @@
       <label>Email</label>
       <input type="email" id="lookup-email" class="input" placeholder="you@example.com" />
       <label>Phone number</label>
-      <input type="tel" id="lookup-phone" class="input" placeholder="0900 000 0000" />
+      <input type="tel" id="lookup-phone" class="input" placeholder="0902 912 2629" />
       <button id="lookup-btn" class="btn btn-gold" style="margin-top:16px;">Find My Bookings</button>
       <p id="lookup-error" style="color:#b00020; display:none; margin-top:10px;"></p>
     </div>
@@ -64,5 +65,6 @@
 <script src="js/supabase-client.js"></script>
 <script src="js/my-bookings.js"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script src="js/chatbot.js"></script>
 </body>
 </html>
