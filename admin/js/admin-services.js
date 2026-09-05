@@ -127,26 +127,41 @@ async function renderAlbumGrid() {
   `).join("");
 }
 
-document.getElementById("album-add-btn").addEventListener("click", async () => {
-  const fileInput = document.getElementById("album-add-input");
-  const files = Array.from(fileInput.files || []);
+document.getElementById("album-add-input").addEventListener("change", async (e) => {
+  const files = Array.from(e.target.files || []);
+  const statusEl = document.getElementById("album-status");
   if (files.length === 0) return;
+
+  statusEl.textContent = `Uploading ${files.length} photo${files.length > 1 ? "s" : ""}…`;
 
   const { data: existing } = await supabaseClient
     .from("service_images").select("sort_order")
     .eq("service_id", activeAlbumServiceId)
     .order("sort_order", { ascending: false }).limit(1);
-  let nextOrder = (existing && existing[0]?.sort_order + 1) || 0;
+  let nextOrder = existing && existing.length > 0 ? existing[0].sort_order + 1 : 0;
+
+  let successCount = 0;
+  let failCount = 0;
 
   for (const file of files) {
     try {
       const url = await uploadImageFile(file);
-      await supabaseClient.from("service_images").insert({
+      const { error: insertError } = await supabaseClient.from("service_images").insert({
         service_id: activeAlbumServiceId, image_url: url, sort_order: nextOrder++,
       });
-    } catch (err) { console.error(err); }
+      if (insertError) throw insertError;
+      successCount++;
+    } catch (err) {
+      console.error("Photo upload failed:", err);
+      failCount++;
+    }
   }
-  fileInput.value = "";
+
+  statusEl.textContent = failCount === 0
+    ? `Uploaded ${successCount} photo${successCount > 1 ? "s" : ""} successfully.`
+    : `Uploaded ${successCount}, but ${failCount} failed. Check your internet connection and try again, or check the browser console for details.`;
+
+  e.target.value = "";
   renderAlbumGrid();
   loadServices();
 });
