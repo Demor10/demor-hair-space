@@ -36,7 +36,7 @@ async function loadService() {
   }
   const { data, error } = await supabaseClient
     .from("services")
-    .select("*")
+    .select("*, service_images(image_url, sort_order)")
     .eq("id", serviceId)
     .single();
 
@@ -50,6 +50,10 @@ async function loadService() {
     ${data.name}
     <div class="price-line">₦${Number(data.price).toLocaleString()} (standard hours)</div>
   `;
+
+  const images = (data.service_images || []).sort((a, b) => a.sort_order - b.sort_order);
+  const galleryEl = document.getElementById("service-gallery");
+  galleryEl.innerHTML = images.map(img => `<img src="${img.image_url}" alt="${data.name}" />`).join("");
 }
 
 // ---------- Load hours for a given date ----------
