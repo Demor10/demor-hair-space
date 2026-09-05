@@ -71,11 +71,16 @@ function renderResults(bookings) {
     const canManage = mins >= 30 && b.status !== "cancelled" && b.status !== "completed";
     return `
       <div class="booking-step" data-id="${b.id}">
-        <h3>${formatDisplayTime(b.start_time)} — ${b.appointment_date}</h3>
-        <p class="muted">
-          ₦${Number(b.price_charged).toLocaleString()} ·
-          <span class="status-pill status-${b.status}">${b.status.replace("_"," ")}</span>
-        </p>
+        <div style="display:flex; gap:16px; align-items:flex-start;">
+          ${b.selected_image_url ? `<img src="${b.selected_image_url}" style="width:90px;height:90px;object-fit:cover;border-radius:6px;flex-shrink:0;" />` : ""}
+          <div>
+            <h3 style="margin-top:0;">${formatDisplayTime(b.start_time)} — ${b.appointment_date}</h3>
+            <p class="muted">
+              ₦${Number(b.price_charged).toLocaleString()} ·
+              <span class="status-pill status-${b.status}">${b.status.replace("_"," ")}</span>
+            </p>
+          </div>
+        </div>
         ${canManage ? `
           <button class="btn-sm" data-action="reschedule">Reschedule</button>
           <button class="btn-sm danger" data-action="cancel">Cancel Booking</button>
