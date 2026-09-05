@@ -9,7 +9,7 @@ async function loadGallery() {
     .from("services")
     .select("id, name, service_images(image_url, sort_order)")
     .eq("is_active", true)
-    .order("created_at", { ascending: true });
+    .order("display_order", { ascending: true, nullsFirst: false });
 
   if (error) {
     container.innerHTML = `<p style="color:#900;">Couldn't load the gallery right now.</p>`;

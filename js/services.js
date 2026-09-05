@@ -10,7 +10,7 @@ async function loadServices() {
     .from("services")
     .select("*, service_images(image_url, sort_order)")
     .eq("is_active", true)
-    .order("created_at", { ascending: true });
+    .order("display_order", { ascending: true, nullsFirst: false });
 
   if (error) {
     grid.innerHTML = `<p style="color:#900;">Couldn't load services right now. Please try again shortly.</p>`;

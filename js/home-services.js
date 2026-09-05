@@ -9,7 +9,7 @@ async function loadHomeServices() {
     .from("services")
     .select("*, service_images(image_url, sort_order)")
     .eq("is_active", true)
-    .order("created_at", { ascending: true })
+    .order("display_order", { ascending: true, nullsFirst: false })
     .limit(3);
 
   if (error) {
