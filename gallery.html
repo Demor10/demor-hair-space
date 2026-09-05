@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gallery — Demor Hair Space</title>
+<link rel="icon" href="assets/images/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/gallery.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/images/logo.png" alt="Demor Hair Space logo" />
+      <span class="brand-name">Demor Hair Space<small>Mobile · Consult · Style</small></span>
+    </a>
+    <nav class="main-nav">
+      <a href="services.html">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="my-bookings.html">My Bookings</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Just browsing?</div>
+      <h2>Style Gallery</h2>
+      <p>Take a look around — no need to book anything. When you're ready, head to Services to pick a look and get started.</p>
+    </div>
+    <div id="gallery-container">
+      <p style="color:var(--ink-600);">Loading gallery…</p>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox for viewing a photo full-size -->
+<div id="lightbox" class="lightbox">
+  <span id="lightbox-close" class="lightbox-close">✕</span>
+  <img id="lightbox-img" src="" alt="" />
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; <span id="year"></span> Demor Hair Space. All rights reserved. · <a href="privacy.html" style="color:inherit;">Privacy</a> · <a href="terms.html" style="color:inherit;">Terms</a></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/gallery.js"></script>
+<script src="js/chatbot.js"></script>
+<script src="js/whatsapp-button.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
