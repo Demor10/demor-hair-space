@@ -9,6 +9,7 @@ const serviceId = params.get("service");
 let currentService = null;
 let selectedDate = null;
 let selectedSlot = null; // { start_time, end_time, is_extended }
+let selectedImageUrl = null;
 
 // ---------- Helpers ----------
 function timeToMinutes(t) {
@@ -52,9 +53,28 @@ async function loadService() {
   `;
 
   const images = (data.service_images || []).sort((a, b) => a.sort_order - b.sort_order);
-  const galleryEl = document.getElementById("service-gallery");
-  galleryEl.innerHTML = images.map(img => `<img src="${img.image_url}" alt="${data.name}" />`).join("");
+
+  if (images.length > 0) {
+    document.getElementById("step-gallery").style.display = "block";
+    document.getElementById("service-gallery").innerHTML = images.map((img, i) => `
+      <img src="${img.image_url}" alt="${data.name}" data-url="${img.image_url}" class="gallery-img" />
+    `).join("");
+  } else {
+    // No photos uploaded for this style yet — skip straight to date/time
+    document.getElementById("step-slots").style.display = "block";
+  }
 }
+
+// ---------- Gallery photo selection ----------
+document.addEventListener("click", (e) => {
+  if (e.target.matches(".gallery-img")) {
+    document.querySelectorAll(".gallery-img").forEach(img => img.classList.remove("selected"));
+    e.target.classList.add("selected");
+    selectedImageUrl = e.target.dataset.url;
+    document.getElementById("step-slots").style.display = "block";
+    document.getElementById("date-input").scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+});
 
 // ---------- Load hours for a given date ----------
 async function getHoursForDate(dateStr) {
@@ -268,6 +288,7 @@ document.getElementById("confirm-btn").addEventListener("click", async () => {
     price_charged: priceCharged,
     payment_method: paymentMethod,
     payment_proof_url: proofUrl,
+    selected_image_url: selectedImageUrl,
     status: paymentMethod === "online_transfer" ? "pending_payment" : "confirmed",
   }).select().single();
 
