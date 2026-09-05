@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Insights — Admin — Demor Hair Space</title>
+<link rel="icon" href="../assets/images/logo.png" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="brand-mini">Demor Admin</div>
+    <a href="bookings.html">Bookings</a>
+    <a href="services.html">Services & Prices</a>
+    <a href="hours.html">Hours & Availability</a>
+    <a href="insights.html" class="active">AI Insights</a>
+    <button id="logout-btn" class="logout">Log out</button>
+  </aside>
+
+  <main class="admin-main">
+    <h1>AI Scheduling Insights</h1>
+    <p class="subtitle">Analyzes your recent bookings and suggests schedule adjustments. Nothing changes automatically — you decide what to act on.</p>
+
+    <div class="admin-card">
+      <button id="generate-btn" class="btn btn-gold">Generate Suggestions</button>
+      <span id="provider-note" class="muted" style="margin-left:12px;"></span>
+    </div>
+
+    <div class="admin-card" id="results-card" style="display:none;">
+      <h3 style="margin-top:0; font-family:var(--font-display); color:var(--navy-900);">Suggestions</h3>
+      <div id="suggestions-output" style="white-space:pre-wrap; line-height:1.7; font-size:0.92rem;"></div>
+    </div>
+
+    <div class="admin-card" id="stats-card">
+      <h3 style="margin-top:0; font-family:var(--font-display); color:var(--navy-900);">Data used for this analysis</h3>
+      <p class="muted" id="stats-summary">Click "Generate Suggestions" to see the numbers behind the recommendations.</p>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/config.js"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/admin-insights.js"></script>
+</body>
+</html>
