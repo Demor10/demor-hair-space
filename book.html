@@ -31,28 +31,35 @@
 
     <div id="service-summary" class="booking-service-card">Loading service…</div>
 
-    <!-- STEP 1: Date + slot picker -->
-    <div id="step-slots" class="booking-step">
-      <h3>1. Pick a date & time</h3>
+    <!-- STEP 1: Choose your look -->
+    <div id="step-gallery" class="booking-step" style="display:none;">
+      <h3>1. Choose the look you want</h3>
+      <p class="muted">Tap the photo that best matches what you're after.</p>
+      <div id="service-gallery" class="service-gallery"></div>
+    </div>
+
+    <!-- STEP 2: Date + slot picker -->
+    <div id="step-slots" class="booking-step" style="display:none;">
+      <h3>2. Pick a date & time</h3>
       <input type="date" id="date-input" class="input" />
       <div id="slots-container" class="slots-grid"></div>
       <p id="slots-msg" class="muted"></p>
     </div>
 
-    <!-- STEP 2: Customer details -->
+    <!-- STEP 3: Customer details -->
     <div id="step-details" class="booking-step" style="display:none;">
-      <h3>2. Your details</h3>
+      <h3>3. Your details</h3>
       <label>Full name</label>
       <input type="text" id="customer-name" class="input" placeholder="Your full name" />
       <label>Email</label>
       <input type="email" id="customer-email" class="input" placeholder="you@example.com" />
       <label>Phone number</label>
-      <input type="tel" id="customer-phone" class="input" placeholder="090-0000-0000" />
+      <input type="tel" id="customer-phone" class="input" placeholder="0902 912 2629" />
     </div>
 
-    <!-- STEP 3: Payment -->
+    <!-- STEP 4: Payment -->
     <div id="step-payment" class="booking-step" style="display:none;">
-      <h3>3. Payment</h3>
+      <h3>4. Payment</h3>
       <div class="pay-options">
         <label class="pay-option">
           <input type="radio" name="payment" value="in_person" checked />
