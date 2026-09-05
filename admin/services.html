@@ -37,8 +37,8 @@
             <input type="number" id="new-price" class="input" placeholder="3500" />
           </div>
           <div>
-            <label>Photo</label>
-            <input type="file" id="new-image" class="input" accept="image/*" />
+            <label>Photos (you can select several at once)</label>
+            <input type="file" id="new-image" class="input" accept="image/*" multiple />
           </div>
         </div>
         <div>
@@ -59,6 +59,15 @@
           <tr><td colspan="5">Loading…</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="admin-card" id="album-panel" style="display:none;">
+      <h3 id="album-title" style="margin-top:0; font-family:var(--font-display); color:var(--navy-900);"></h3>
+      <div id="album-grid" style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:16px;"></div>
+      <label>Add more photos to this style</label>
+      <input type="file" id="album-add-input" class="input" accept="image/*" multiple style="max-width:340px;" />
+      <button id="album-add-btn" class="btn-sm" style="margin-top:8px;">Upload</button>
+      <button id="album-close-btn" class="btn-sm" style="margin-top:8px;">Close</button>
     </div>
   </main>
 </div>
