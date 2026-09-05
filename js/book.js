@@ -145,10 +145,9 @@ async function renderSlotsForDate(dateStr) {
   const allSlots = generateSlots(hours);
 
   const { data: existingBookings, error } = await supabaseClient
-    .from("bookings")
+    .from("public_booked_slots")
     .select("start_time")
-    .eq("appointment_date", dateStr)
-    .neq("status", "cancelled");
+    .eq("appointment_date", dateStr);
 
   if (error) {
     msg.textContent = "Couldn't check availability. Please try again.";
