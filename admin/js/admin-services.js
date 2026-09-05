@@ -17,22 +17,30 @@ async function loadServices() {
   const { data, error } = await supabaseClient
     .from("services")
     .select("*, service_images(id, image_url, sort_order)")
-    .order("created_at", { ascending: true });
+    .order("display_order", { ascending: true, nullsFirst: false });
 
   if (error) {
-    tbody.innerHTML = `<tr><td colspan="5">Couldn't load services.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6">Couldn't load services.</td></tr>`;
     return;
   }
   if (!data || data.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5">No services yet — add one above.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6">No services yet — add one above.</td></tr>`;
     return;
   }
 
-  tbody.innerHTML = data.map(s => {
+  tbody.innerHTML = data.map((s, index) => {
     const images = (s.service_images || []).sort((a, b) => a.sort_order - b.sort_order);
     const cover = images[0]?.image_url;
+    const isTop3 = index < 3;
     return `
-    <tr data-id="${s.id}">
+    <tr data-id="${s.id}" data-order="${s.display_order ?? index}">
+      <td>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <button class="btn-sm" data-action="move-up" ${index === 0 ? "disabled" : ""} title="Move up">↑</button>
+          <button class="btn-sm" data-action="move-down" ${index === data.length - 1 ? "disabled" : ""} title="Move down">↓</button>
+          ${isTop3 ? `<span class="status-pill status-confirmed" title="Shown on homepage">Homepage</span>` : ""}
+        </div>
+      </td>
       <td>${cover ? `<img src="${cover}" style="width:48px;height:48px;object-fit:cover;border-radius:4px;" />` : "—"}</td>
       <td>${s.name}<br><span style="color:var(--ink-600); font-size:0.8rem;">${s.description || ""}</span></td>
       <td>₦${Number(s.price).toLocaleString()}</td>
@@ -45,6 +53,14 @@ async function loadServices() {
     </tr>
   `;
   }).join("");
+}
+
+async function swapDisplayOrder(rowA, rowB) {
+  const idA = rowA.dataset.id, idB = rowB.dataset.id;
+  const orderA = Number(rowA.dataset.order), orderB = Number(rowB.dataset.order);
+  await supabaseClient.from("services").update({ display_order: orderB }).eq("id", idA);
+  await supabaseClient.from("services").update({ display_order: orderA }).eq("id", idB);
+  loadServices();
 }
 
 document.getElementById("add-service-btn").addEventListener("click", async () => {
@@ -65,9 +81,15 @@ document.getElementById("add-service-btn").addEventListener("click", async () =>
   addBtn.disabled = true;
   addBtn.textContent = "Adding…";
 
+  const { data: maxOrderData } = await supabaseClient
+    .from("services").select("display_order")
+    .order("display_order", { ascending: false }).limit(1);
+  const nextDisplayOrder = (maxOrderData && maxOrderData[0]?.display_order != null)
+    ? maxOrderData[0].display_order + 1 : 0;
+
   const { data: newService, error } = await supabaseClient
     .from("services")
-    .insert({ name, price: Number(price), description: desc, is_active: true })
+    .insert({ name, price: Number(price), description: desc, is_active: true, display_order: nextDisplayOrder })
     .select().single();
 
   if (error) {
@@ -174,6 +196,13 @@ document.getElementById("album-close-btn").addEventListener("click", () => {
 document.addEventListener("click", async (e) => {
   const action = e.target.dataset.action;
   if (!action) return;
+
+  if (action === "move-up" || action === "move-down") {
+    const row = e.target.closest("tr");
+    const targetRow = action === "move-up" ? row.previousElementSibling : row.nextElementSibling;
+    if (targetRow) swapDisplayOrder(row, targetRow);
+    return;
+  }
 
   if (action === "album") {
     const row = e.target.closest("tr");
