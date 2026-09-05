@@ -147,3 +147,15 @@
 }
 
 .success-box h3 { font-family: var(--font-display); color: var(--navy-900); }
+
+.status-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.status-pending_payment { background: #fdf0d5; color: #a3691f; }
+.status-confirmed { background: #e2f3e8; color: #1e7a43; }
+.status-completed { background: #e5e9f5; color: #33418f; }
+.status-cancelled { background: #f5e2e2; color: #a32323; }
