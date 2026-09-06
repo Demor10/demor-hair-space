@@ -37,7 +37,9 @@ async function loadBookings() {
   tbody.innerHTML = data.map(b => `
     <tr data-id="${b.id}">
       <td>${b.appointment_date}</td>
-      <td>${formatDisplayTime(b.start_time)}${b.is_extended_hours ? " (ext.)" : ""}</td>
+      <td>${formatDisplayTime(b.start_time)}${b.is_extended_hours ? " (ext.)" : ""}<br>
+        <span class="status-pill ${b.location_type === 'home' ? 'status-pending_payment' : 'status-completed'}">${b.location_type === 'home' ? 'Home Service' : 'Store'}</span>
+      </td>
       <td>${b.customer_name}<br><span style="color:var(--ink-600); font-size:0.8rem;">${b.customer_phone}</span></td>
       <td>${b.services?.name || "—"}${b.selected_image_url ? `<br><img src="${b.selected_image_url}" style="width:36px;height:36px;object-fit:cover;border-radius:4px;margin-top:4px;" />` : ""}</td>
       <td>₦${Number(b.price_charged).toLocaleString()}</td>

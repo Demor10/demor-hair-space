@@ -10,17 +10,23 @@ async function loadAnnouncements() {
   if (error || !data) { list.innerHTML = "Couldn't load announcements."; return; }
   if (data.length === 0) { list.innerHTML = `<p class="muted">No announcements yet.</p>`; return; }
 
-  list.innerHTML = data.map(a => `
+  list.innerHTML = data.map(a => {
+    const schedule = (a.show_from || a.show_until)
+      ? `${a.show_from ? new Date(a.show_from).toLocaleString() : "now"} → ${a.show_until ? new Date(a.show_until).toLocaleString() : "no end date"}`
+      : "Always shown while active";
+    return `
     <div class="admin-card" style="margin-bottom:12px; display:flex; align-items:center; gap:14px;" data-id="${a.id}">
       ${a.image_url ? `<img src="${a.image_url}" style="width:48px;height:48px;object-fit:cover;border-radius:50%;" />` : ""}
       <div style="flex:1;">
         <p style="margin:0;">${a.message}</p>
+        <p class="muted" style="margin:2px 0;">${schedule}</p>
         <span class="status-pill ${a.is_active ? 'status-confirmed' : 'status-cancelled'}">${a.is_active ? "Active" : "Hidden"}</span>
       </div>
       <button class="btn-sm" data-action="toggle">${a.is_active ? "Hide" : "Show"}</button>
       <button class="btn-sm danger" data-action="delete">Delete</button>
     </div>
-  `).join("");
+  `;
+  }).join("");
 }
 
 document.getElementById("add-announcement-btn").addEventListener("click", async () => {
@@ -52,6 +58,8 @@ document.getElementById("add-announcement-btn").addEventListener("click", async 
 
   const { error } = await supabaseClient.from("announcements").insert({
     message, image_url: imageUrl, is_active: true,
+    show_from: document.getElementById("new-show-from").value || null,
+    show_until: document.getElementById("new-show-until").value || null,
   });
 
   btn.disabled = false;
@@ -65,6 +73,8 @@ document.getElementById("add-announcement-btn").addEventListener("click", async 
 
   document.getElementById("new-message").value = "";
   fileInput.value = "";
+  document.getElementById("new-show-from").value = "";
+  document.getElementById("new-show-until").value = "";
   loadAnnouncements();
 });
 
