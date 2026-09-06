@@ -179,7 +179,7 @@ nav.main-nav a:hover { opacity: 1; }
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, rgba(11,30,61,0.88), rgba(10,24,48,0.92));
+  background: linear-gradient(120deg, rgba(11,30,61,0.55), rgba(10,24,48,0.6));
   z-index: 1;
 }
 
@@ -222,13 +222,15 @@ nav.main-nav a:hover { opacity: 1; }
   line-height: 1.08;
   margin: 0 0 24px;
   font-weight: 600;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 
 .hero p.lede {
   font-size: 1.15rem;
-  color: rgba(247, 244, 238, 0.78);
+  color: rgba(247, 244, 238, 0.9);
   max-width: 46ch;
   margin: 0 0 36px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.35);
 }
 
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
