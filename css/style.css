@@ -76,6 +76,7 @@ a { color: inherit; }
   align-items: center;
   justify-content: space-between;
   height: 76px;
+  gap: 24px;
 }
 
 .brand {
@@ -84,6 +85,7 @@ a { color: inherit; }
   gap: 12px;
   text-decoration: none;
   color: var(--cream-100);
+  flex-shrink: 0;
 }
 
 .brand img {
@@ -112,7 +114,8 @@ a { color: inherit; }
 nav.main-nav {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 26px;
+  margin-left: auto;
 }
 
 nav.main-nav a {
@@ -371,7 +374,7 @@ footer.site-footer {
 }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 860px) {
+@media (max-width: 1000px) {
   nav.main-nav {
     display: none;
     position: absolute;

@@ -1,3 +1,37 @@
+#chat-help-label {
+  position: fixed;
+  bottom: 40px;
+  right: 92px;
+  background: var(--navy-900);
+  color: var(--gold-400);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 8px 18px;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(11,30,61,0.25);
+  z-index: 999;
+  animation: chatLabelPulse 2.4s ease-in-out infinite;
+  white-space: nowrap;
+}
+
+#chat-help-label::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 6px 0 6px 8px;
+  border-style: solid;
+  border-color: transparent transparent transparent var(--navy-900);
+}
+
+@keyframes chatLabelPulse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
 #chat-bubble-btn {
   position: fixed;
   bottom: 24px;
@@ -125,4 +159,5 @@
 @media (max-width: 480px) {
   #chat-panel { width: calc(100vw - 32px); right: 16px; }
   #chat-bubble-btn { right: 16px; }
+  #chat-help-label { display: none; }
 }
