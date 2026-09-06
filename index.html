@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet" href="css/chatbot.css" />
+<link rel="stylesheet" href="css/stories.css" />
 </head>
 <body>
 
@@ -89,6 +90,41 @@
   </div>
 </section>
 
+<section style="background:#fff;" id="stories">
+  <div class="wrap">
+    <div class="section-head" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
+      <div>
+        <div class="kicker">The Barber's Rack</div>
+        <h2>Customer Stories</h2>
+        <p>Funny, memorable moments from the chair — shared by our customers.</p>
+      </div>
+      <button id="share-story-btn" class="btn btn-outline" style="border-color:var(--navy-900); color:var(--navy-900);">Share Your Story</button>
+    </div>
+
+    <div class="stories-rack-wrap">
+      <button id="stories-prev" class="stories-arrow" aria-label="Previous">‹</button>
+      <div class="stories-rack" id="stories-rack">
+        <p class="muted">Loading stories…</p>
+      </div>
+      <button id="stories-next" class="stories-arrow" aria-label="Next">›</button>
+    </div>
+  </div>
+</section>
+
+<!-- Share Your Story modal -->
+<div id="story-modal" class="story-modal-overlay">
+  <div class="story-modal">
+    <button id="story-modal-close" class="story-modal-close">✕</button>
+    <h3>Share Your Story</h3>
+    <label>Your name</label>
+    <input type="text" id="story-name" class="input" placeholder="Your name" />
+    <label>Your story</label>
+    <textarea id="story-text" class="input" rows="5" placeholder="Tell us about your experience..."></textarea>
+    <button id="story-submit-btn" class="btn btn-gold" style="margin-top:14px;">Submit Story</button>
+    <p id="story-status" class="muted" style="margin-top:10px;"></p>
+  </div>
+</div>
+
 <section class="contact-band" id="contact">
   <div class="wrap contact-grid">
     <div>
@@ -118,6 +154,7 @@
 <script src="js/config.js"></script>
 <script src="js/supabase-client.js"></script>
 <script src="js/home-services.js"></script>
+<script src="js/stories.js"></script>
 <script src="js/chatbot.js"></script>
 <script src="js/whatsapp-button.js"></script>
 <script src="js/nav-toggle.js"></script>
