@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Customer Stories — Admin — Demor Hair Space</title>
+<link rel="icon" href="../assets/images/logo.png" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="brand-mini">Demor Admin</div>
+    <a href="bookings.html">Bookings</a>
+    <a href="services.html">Services & Prices</a>
+    <a href="hours.html">Hours & Availability</a>
+    <a href="insights.html">AI Insights</a>
+    <a href="stories.html" class="active">Customer Stories</a>
+    <button id="logout-btn" class="logout">Log out</button>
+  </aside>
+
+  <main class="admin-main">
+    <h1>Customer Stories</h1>
+    <p class="subtitle">Approve stories before they appear on the homepage. Pending stories are never shown publicly.</p>
+
+    <div class="admin-card">
+      <h3 style="margin-top:0; font-family:var(--font-display); color:var(--navy-900);">Pending Review</h3>
+      <div id="pending-list"><p class="muted">Loading…</p></div>
+    </div>
+
+    <div class="admin-card">
+      <h3 style="margin-top:0; font-family:var(--font-display); color:var(--navy-900);">Approved (live on homepage)</h3>
+      <div id="approved-list"><p class="muted">Loading…</p></div>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/config.js"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/admin-stories.js"></script>
+</body>
+</html>
