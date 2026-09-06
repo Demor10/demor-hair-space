@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About Us — Demor Hair Space</title>
+<link rel="icon" href="assets/images/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/chatbot.css" />
+<style>
+  .about-hero {
+    background: radial-gradient(circle at 20% -10%, var(--navy-800), var(--navy-950) 60%);
+    color: var(--cream-100);
+    padding: 80px 0 90px;
+    text-align: center;
+  }
+  .about-hero .kicker { color: var(--gold-400); font-size: 0.85rem; letter-spacing: 0.06em; margin-bottom: 16px; }
+  .about-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.8rem); margin: 0 0 18px; }
+  .about-hero p { max-width: 60ch; margin: 0 auto; color: rgba(247,244,238,0.8); font-size: 1.05rem; }
+
+  .about-body { max-width: 760px; margin: 0 auto; padding: 64px 24px; }
+  .about-body h2 { font-family: var(--font-display); color: var(--navy-900); font-size: 1.5rem; margin: 40px 0 16px; }
+  .about-body p { color: var(--ink-600); font-size: 1rem; line-height: 1.8; margin-bottom: 16px; }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 24px;
+  }
+  .value-card {
+    border-top: 3px solid var(--gold-500);
+    padding-top: 16px;
+  }
+  .value-card h3 { font-family: var(--font-display); color: var(--navy-900); font-size: 1.05rem; margin: 0 0 8px; }
+  .value-card p { font-size: 0.92rem; margin: 0; }
+
+  @media (max-width: 700px) {
+    .values-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/images/logo.png" alt="Demor Hair Space logo" />
+      <span class="brand-name">Demor Hair Space<small>Mobile · Consult · Style</small></span>
+    </a>
+    <nav class="main-nav">
+      <a href="services.html">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About Us</a>
+      <a href="my-bookings.html">My Bookings</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <button id="nav-toggle-btn" class="nav-toggle-btn" aria-label="Toggle menu">☰</button>
+  </div>
+</header>
+
+<main>
+
+<section class="about-hero">
+  <div class="wrap">
+    <div class="kicker">MOBILE · CONSULT · STYLE</div>
+    <h1>Great hair shouldn't be complicated.</h1>
+    <p>Demor Hair Space was built on a simple idea: skilled barbing, real conversation, and a chair that comes to you — or waits for you, right on schedule.</p>
+  </div>
+</section>
+
+<div class="about-body">
+  <h2>Our Story</h2>
+  <p>Demor Hair Space started the way most good barbering does — with a steady hand, an ear for what a client actually wants, and a refusal to rush a fade just to get to the next customer. What began as word-of-mouth appointments grew into something more structured: a proper booking system, a real photo album of styles, and hours built around real life, including evenings for anyone who can't make a 9-to-5 slot.</p>
+  <p>We're still, at heart, a one-barber operation — and that's by design. Every client gets the same hands, the same attention to detail, and the same honest consultation every time, whether it's your first cut with us or your fiftieth.</p>
+
+  <h2>What We're About</h2>
+  <p>Barbing is a craft, not a conveyor belt. Before any clippers come out, we talk — about your hair, your face shape, your week, what's actually going to work for you day to day, not just what looks good in the chair. That conversation is free, and it's non-negotiable.</p>
+
+  <div class="values-grid">
+    <div class="value-card">
+      <h3>Precision</h3>
+      <p>Every line, every fade, every taper — done with the same care whether it's a quick trim or a full grooming session.</p>
+    </div>
+    <div class="value-card">
+      <h3>Consultation</h3>
+      <p>We ask before we cut. Your style should fit your life, not the other way around.</p>
+    </div>
+    <div class="value-card">
+      <h3>Reliability</h3>
+      <p>Real-time booking, honest hours, and a barber who shows up exactly when the schedule says he will.</p>
+    </div>
+  </div>
+
+  <h2>Booking With Us</h2>
+  <p>We built our own booking system so you're never left guessing — real availability, clear pricing, and photos of every style before you commit. Pay however's easiest for you, online or in person, and if plans change, you're free to cancel or reschedule yourself right up until 30 minutes before your slot.</p>
+
+  <h2>Let's Talk</h2>
+  <p>Got a question before booking, or just want to see a style up close first? Reach out on WhatsApp, give us a call, or use the chat assistant in the corner of this site — we're glad to help.</p>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">&copy; <span id="year"></span> Demor Hair Space. All rights reserved. · <a href="privacy.html" style="color:inherit;">Privacy</a> · <a href="terms.html" style="color:inherit;">Terms</a></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/chatbot.js"></script>
+<script src="js/whatsapp-button.js"></script>
+<script src="js/nav-toggle.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
