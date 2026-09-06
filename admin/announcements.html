@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Announcements — Admin — Demor Hair Space</title>
+<link rel="icon" href="../assets/images/logo.png" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="brand-mini">Demor Admin</div>
+    <a href="bookings.html">Bookings</a>
+    <a href="services.html">Services & Prices</a>
+    <a href="hours.html">Hours & Availability</a>
+    <a href="insights.html">AI Insights</a>
+    <a href="stories.html">Customer Stories</a>
+    <a href="announcements.html" class="active">Announcements</a>
+    <button id="logout-btn" class="logout">Log out</button>
+  </aside>
+
+  <main class="admin-main">
+    <h1>Announcements</h1>
+    <p class="subtitle">Short messages shown in a sliding banner near the top of your homepage — happy new month, birthdays, promos, anything.</p>
+
+    <div class="admin-card">
+      <h3 style="margin-top:0; font-family:var(--font-display); color:var(--navy-900);">Post a new announcement</h3>
+      <label>Message</label>
+      <input type="text" id="new-message" class="input" placeholder="e.g. Happy New Month from all of us at Demor Hair Space!" />
+      <label>Image (optional)</label>
+      <input type="file" id="new-image" class="input" accept="image/*" />
+      <button id="add-announcement-btn" class="btn btn-gold" style="margin-top:14px;">Post Announcement</button>
+      <p id="add-error" style="color:#b00020; font-size:0.85rem; margin-top:10px; display:none;"></p>
+    </div>
+
+    <div class="admin-card">
+      <h3 style="margin-top:0; font-family:var(--font-display); color:var(--navy-900);">Active & past announcements</h3>
+      <div id="announcements-list"><p class="muted">Loading…</p></div>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/config.js"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/admin-announcements.js"></script>
+</body>
+</html>
