@@ -23,7 +23,7 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; height: 100%; }
 
 body {
   margin: 0;
@@ -32,7 +32,13 @@ body {
   background: var(--cream-100);
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
+
+main { flex: 1 0 auto; }
+footer.site-footer { flex-shrink: 0; }
 
 img { max-width: 100%; display: block; }
 
