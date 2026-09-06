@@ -141,12 +141,26 @@ async function renderAlbumGrid() {
   if (error || !data) { grid.innerHTML = "Couldn't load photos."; return; }
   if (data.length === 0) { grid.innerHTML = "<p class='muted'>No photos yet.</p>"; return; }
 
-  grid.innerHTML = data.map(img => `
-    <div style="position:relative;" data-img-id="${img.id}">
-      <img src="${img.image_url}" style="width:100px;height:100px;object-fit:cover;border-radius:4px;" />
+  grid.innerHTML = data.map((img, index) => `
+    <div style="position:relative;" data-img-id="${img.id}" data-sort="${img.sort_order}">
+      <img src="${img.image_url}" style="width:100px;height:100px;object-fit:cover;border-radius:4px; ${index === 0 ? 'outline:3px solid var(--gold-500);' : ''}" />
+      ${index === 0 ? `<span style="position:absolute; bottom:2px; left:2px; background:var(--gold-500); color:var(--navy-950); font-size:0.65rem; padding:1px 6px; border-radius:3px; font-weight:600;">Cover</span>` : ""}
       <button data-action="delete-image" style="position:absolute; top:-8px; right:-8px; background:#a32323; color:#fff; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; font-size:0.75rem;">✕</button>
+      <div style="display:flex; justify-content:center; gap:4px; margin-top:4px;">
+        <button class="btn-sm" data-action="photo-move-left" ${index === 0 ? "disabled" : ""} style="padding:2px 8px; font-size:0.7rem;">←</button>
+        <button class="btn-sm" data-action="photo-move-right" ${index === data.length - 1 ? "disabled" : ""} style="padding:2px 8px; font-size:0.7rem;">→</button>
+      </div>
     </div>
   `).join("");
+}
+
+async function swapPhotoOrder(elA, elB) {
+  const idA = elA.dataset.imgId, idB = elB.dataset.imgId;
+  const orderA = Number(elA.dataset.sort), orderB = Number(elB.dataset.sort);
+  await supabaseClient.from("service_images").update({ sort_order: orderB }).eq("id", idA);
+  await supabaseClient.from("service_images").update({ sort_order: orderA }).eq("id", idB);
+  renderAlbumGrid();
+  loadServices();
 }
 
 document.getElementById("album-add-input").addEventListener("change", async (e) => {
@@ -207,6 +221,13 @@ document.addEventListener("click", async (e) => {
   if (action === "album") {
     const row = e.target.closest("tr");
     openAlbum(row.dataset.id, e.target.dataset.name);
+    return;
+  }
+
+  if (action === "photo-move-left" || action === "photo-move-right") {
+    const el = e.target.closest("[data-img-id]");
+    const target = action === "photo-move-left" ? el.previousElementSibling : el.nextElementSibling;
+    if (target) swapPhotoOrder(el, target);
     return;
   }
 
