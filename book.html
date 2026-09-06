@@ -20,6 +20,7 @@
       <span class="brand-name">Demor Hair Space<small>Mobile · Consult · Style</small></span>
     </a>
     <nav class="main-nav">
+      <a href="index.html">Home</a>
       <a href="services.html">Services</a>
       <a href="gallery.html">Gallery</a>
       <a href="about.html">About Us</a>
@@ -44,17 +45,32 @@
       <div id="service-gallery" class="service-gallery"></div>
     </div>
 
-    <!-- STEP 2: Date + slot picker -->
+    <!-- STEP 2: Location -->
+    <div id="step-location" class="booking-step" style="display:none;">
+      <h3>2. Where should we barber you?</h3>
+      <div class="pay-options">
+        <label class="pay-option">
+          <input type="radio" name="location" value="store" checked />
+          Physical Store — standard pricing
+        </label>
+        <label class="pay-option">
+          <input type="radio" name="location" value="home" />
+          Home Service (+30%) — the barber comes to you. Not available during extended hours (7–10 PM).
+        </label>
+      </div>
+    </div>
+
+    <!-- STEP 3: Date + slot picker -->
     <div id="step-slots" class="booking-step" style="display:none;">
-      <h3>2. Pick a date & time</h3>
+      <h3>3. Pick a date & time</h3>
       <input type="date" id="date-input" class="input" />
       <div id="slots-container" class="slots-grid"></div>
       <p id="slots-msg" class="muted"></p>
     </div>
 
-    <!-- STEP 3: Customer details -->
+    <!-- STEP 4: Customer details -->
     <div id="step-details" class="booking-step" style="display:none;">
-      <h3>3. Your details</h3>
+      <h3>4. Your details</h3>
       <label>Full name</label>
       <input type="text" id="customer-name" class="input" placeholder="Your full name" />
       <label>Email</label>
@@ -63,9 +79,9 @@
       <input type="tel" id="customer-phone" class="input" placeholder="0902 912 2629" />
     </div>
 
-    <!-- STEP 4: Payment -->
+    <!-- STEP 5: Payment -->
     <div id="step-payment" class="booking-step" style="display:none;">
-      <h3>4. Payment</h3>
+      <h3>5. Payment</h3>
       <div class="pay-options">
         <label class="pay-option">
           <input type="radio" name="payment" value="in_person" checked />
