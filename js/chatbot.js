@@ -12,6 +12,7 @@
   // Inject widget HTML
   const wrapper = document.createElement("div");
   wrapper.innerHTML = `
+    <div id="chat-help-label">Want help?</div>
     <button id="chat-bubble-btn" aria-label="Chat with us">💬</button>
     <div id="chat-panel">
       <div id="chat-header">
@@ -41,6 +42,7 @@
 
   document.getElementById("chat-bubble-btn").addEventListener("click", () => {
     panel.classList.toggle("open");
+    document.getElementById("chat-help-label").style.display = panel.classList.contains("open") ? "none" : "block";
     if (panel.classList.contains("open")) input.focus();
   });
   document.getElementById("chat-close-btn").addEventListener("click", () => {

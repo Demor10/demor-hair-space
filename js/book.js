@@ -10,6 +10,7 @@ let currentService = null;
 let selectedDate = null;
 let selectedSlot = null; // { start_time, end_time, is_extended }
 let selectedImageUrl = null;
+let selectedLocation = "store";
 
 // ---------- Helpers ----------
 function timeToMinutes(t) {
@@ -60,8 +61,8 @@ async function loadService() {
       <img src="${img.image_url}" alt="${data.name}" data-url="${img.image_url}" class="gallery-img" />
     `).join("");
   } else {
-    // No photos uploaded for this style yet — skip straight to date/time
-    document.getElementById("step-slots").style.display = "block";
+    // No photos uploaded for this style yet — skip straight to location choice
+    document.getElementById("step-location").style.display = "block";
   }
 }
 
@@ -71,8 +72,24 @@ document.addEventListener("click", (e) => {
     document.querySelectorAll(".gallery-img").forEach(img => img.classList.remove("selected"));
     e.target.classList.add("selected");
     selectedImageUrl = e.target.dataset.url;
+    document.getElementById("step-location").style.display = "block";
+    document.getElementById("step-location").scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+});
+
+// ---------- Location selection ----------
+document.addEventListener("change", (e) => {
+  if (e.target.name === "location") {
+    selectedLocation = e.target.value;
     document.getElementById("step-slots").style.display = "block";
-    document.getElementById("date-input").scrollIntoView({ behavior: "smooth", block: "center" });
+    // Location can change the set of valid slots (Home Service excludes extended hours)
+    if (selectedDate) renderSlotsForDate(selectedDate);
+    // Re-validate a previously selected slot against the new location rule
+    if (selectedLocation === "home" && selectedSlot?.is_extended) {
+      selectedSlot = null;
+      document.querySelectorAll(".slot-btn.selected").forEach(b => b.classList.remove("selected"));
+    }
+    updateAmount();
   }
 });
 
@@ -142,7 +159,8 @@ async function renderSlotsForDate(dateStr) {
     return;
   }
 
-  const allSlots = generateSlots(hours);
+  const allSlotsRaw = generateSlots(hours);
+  const allSlots = selectedLocation === "home" ? allSlotsRaw.filter(s => !s.isExtended) : allSlotsRaw;
 
   const { data: existingBookings, error } = await supabaseClient
     .from("public_booked_slots")
@@ -200,9 +218,14 @@ document.addEventListener("click", (e) => {
 
 function updateAmount() {
   if (!currentService || !selectedSlot) return;
-  const base = Number(currentService.price);
-  const amount = selectedSlot.is_extended ? Math.round(base * 1.2) : base;
+  const amount = computePrice(Number(currentService.price), selectedSlot.is_extended, selectedLocation);
   document.getElementById("amount-to-pay").textContent = `₦${amount.toLocaleString()}`;
+}
+
+function computePrice(basePrice, isExtended, locationType) {
+  if (locationType === "home") return Math.round(basePrice * 1.3);
+  if (isExtended) return Math.round(basePrice * 1.2);
+  return basePrice;
 }
 
 // ---------- Payment method toggle ----------
@@ -248,8 +271,7 @@ document.getElementById("confirm-btn").addEventListener("click", async () => {
     return;
   }
 
-  const base = Number(currentService.price);
-  const priceCharged = selectedSlot.is_extended ? Math.round(base * 1.2) : base;
+  const priceCharged = computePrice(Number(currentService.price), selectedSlot.is_extended, selectedLocation);
 
   let proofUrl = null;
   if (paymentMethod === "online_transfer") {
@@ -288,6 +310,7 @@ document.getElementById("confirm-btn").addEventListener("click", async () => {
     payment_method: paymentMethod,
     payment_proof_url: proofUrl,
     selected_image_url: selectedImageUrl,
+    location_type: selectedLocation,
     status: paymentMethod === "online_transfer" ? "pending_payment" : "confirmed",
   }).select().single();
 

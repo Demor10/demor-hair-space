@@ -11,11 +11,20 @@ async function loadAnnouncements() {
     .eq("is_active", true)
     .order("created_at", { ascending: false });
 
-  if (error || !data || data.length === 0) return; // banner stays hidden
+  if (error || !data) return;
+
+  const now = new Date();
+  const visible = data.filter(a => {
+    if (a.show_from && new Date(a.show_from) > now) return false;
+    if (a.show_until && new Date(a.show_until) < now) return false;
+    return true;
+  });
+
+  if (visible.length === 0) return; // banner stays hidden
 
   banner.classList.add("has-items");
   banner.innerHTML = `<div class="announcement-track" id="announcement-track">
-    ${data.map(a => `
+    ${visible.map(a => `
       <div class="announcement-slide">
         ${a.image_url ? `<img src="${a.image_url}" alt="" />` : ""}
         <p>${a.message}</p>
@@ -23,11 +32,11 @@ async function loadAnnouncements() {
     `).join("")}
   </div>`;
 
-  if (data.length > 1) {
+  if (visible.length > 1) {
     let current = 0;
     const track = document.getElementById("announcement-track");
     setInterval(() => {
-      current = (current + 1) % data.length;
+      current = (current + 1) % visible.length;
       track.style.transform = `translateX(-${current * 100}%)`;
     }, 5000);
   }

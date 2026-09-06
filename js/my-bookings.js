@@ -6,6 +6,7 @@ const SLOT_MINUTES = 45;
 let lookupEmail = null;
 let lookupPhone = null;
 let activeRescheduleBooking = null;
+let activeRescheduleLocation = "store";
 let reschedSelectedSlot = null;
 
 // ---------- Helpers (shared logic with book.js) ----------
@@ -70,15 +71,16 @@ function renderResults(bookings) {
     const mins = minutesUntil(b.appointment_date, b.start_time);
     const canManage = mins >= 30 && b.status !== "cancelled" && b.status !== "completed";
     return `
-      <div class="booking-step" data-id="${b.id}">
+      <div class="booking-step" data-id="${b.id}" data-location="${b.location_type}">
         <div style="display:flex; gap:16px; align-items:flex-start;">
           ${b.selected_image_url ? `<img src="${b.selected_image_url}" style="width:90px;height:90px;object-fit:cover;border-radius:6px;flex-shrink:0;" />` : ""}
           <div>
             <h3 style="margin-top:0;">${formatDisplayTime(b.start_time)} — ${b.appointment_date}</h3>
-            <p class="muted">
-              ₦${Number(b.price_charged).toLocaleString()} ·
-              <span class="status-pill status-${b.status}">${b.status.replace("_"," ")}</span>
-            </p>
+        <p class="muted">
+          ₦${Number(b.price_charged).toLocaleString()} ·
+          <span class="status-pill status-${b.status}">${b.status.replace("_"," ")}</span> ·
+          <span class="status-pill ${b.location_type === 'home' ? 'status-pending_payment' : 'status-completed'}">${b.location_type === 'home' ? 'Home Service' : 'Store'}</span>
+        </p>
           </div>
         </div>
         ${canManage ? `
@@ -108,7 +110,9 @@ document.addEventListener("click", async (e) => {
   }
 
   if (e.target.dataset.action === "reschedule") {
-    activeRescheduleBooking = e.target.closest("[data-id]").dataset.id;
+    const row = e.target.closest("[data-id]");
+    activeRescheduleBooking = row.dataset.id;
+    activeRescheduleLocation = row.dataset.location || "store";
     reschedSelectedSlot = null;
     document.getElementById("reschedule-panel").style.display = "block";
     document.getElementById("reschedule-panel").scrollIntoView({ behavior: "smooth" });
@@ -159,7 +163,8 @@ async function renderReschedSlots(dateStr) {
   const hours = await getHoursForDate(dateStr);
   if (!hours) { msg.textContent = "Closed on this date. Please pick another day."; return; }
 
-  const allSlots = generateSlots(hours);
+  const allSlotsRaw = generateSlots(hours);
+  const allSlots = activeRescheduleLocation === "home" ? allSlotsRaw.filter(s => !s.isExtended) : allSlotsRaw;
   const { data: taken } = await supabaseClient
     .from("public_booked_slots").select("start_time").eq("appointment_date", dateStr);
   const takenTimes = new Set((taken || []).map(t => t.start_time));
