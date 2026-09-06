@@ -33,6 +33,16 @@
       <input type="text" id="new-message" class="input" placeholder="e.g. Happy New Month from all of us at Demor Hair Space!" />
       <label>Image (optional)</label>
       <input type="file" id="new-image" class="input" accept="image/*" />
+      <div class="form-row">
+        <div>
+          <label>Show from (optional — leave blank to show immediately)</label>
+          <input type="datetime-local" id="new-show-from" class="input" />
+        </div>
+        <div>
+          <label>Show until (optional — leave blank to never expire)</label>
+          <input type="datetime-local" id="new-show-until" class="input" />
+        </div>
+      </div>
       <button id="add-announcement-btn" class="btn btn-gold" style="margin-top:14px;">Post Announcement</button>
       <p id="add-error" style="color:#b00020; font-size:0.85rem; margin-top:10px; display:none;"></p>
     </div>
