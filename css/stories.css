@@ -1,0 +1,110 @@
+.stories-rack-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  position: relative;
+}
+
+.stories-rack {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+}
+
+.stories-rack::-webkit-scrollbar { height: 6px; }
+.stories-rack::-webkit-scrollbar-thumb { background: var(--gold-500); border-radius: 4px; }
+
+.story-card {
+  scroll-snap-align: start;
+  flex: 0 0 320px;
+  background: var(--cream-100);
+  border: 1px solid rgba(11,30,61,0.08);
+  border-left: 4px solid var(--gold-500);
+  border-radius: 6px;
+  padding: 22px;
+}
+
+.story-card .story-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--navy-900);
+  font-size: 1.02rem;
+  line-height: 1.5;
+  margin: 0 0 14px;
+}
+
+.story-card .story-author {
+  color: var(--gold-700);
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.stories-arrow {
+  background: var(--navy-900);
+  color: var(--gold-400);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.stories-arrow:hover { background: var(--navy-800); }
+
+/* ---------- Share Story Modal ---------- */
+.story-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,24,48,0.6);
+  z-index: 1001;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.story-modal-overlay.open { display: flex; }
+
+.story-modal {
+  background: #fff;
+  border-radius: 10px;
+  padding: 32px;
+  width: 100%;
+  max-width: 440px;
+  position: relative;
+}
+
+.story-modal h3 {
+  font-family: var(--font-display);
+  color: var(--navy-900);
+  margin: 0 0 18px;
+}
+
+.story-modal label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--ink-600);
+  margin: 12px 0 6px;
+}
+
+.story-modal textarea.input { resize: vertical; font-family: var(--font-body); }
+
+.story-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--ink-600);
+}
+
+@media (max-width: 600px) {
+  .story-card { flex-basis: 260px; }
+}
