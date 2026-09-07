@@ -211,6 +211,7 @@ document.addEventListener("click", (e) => {
     };
     document.getElementById("step-details").style.display = "block";
     document.getElementById("step-payment").style.display = "block";
+    document.getElementById("consent-box").style.display = "block";
     document.getElementById("confirm-btn").style.display = "inline-flex";
     updateAmount();
   }
@@ -270,6 +271,11 @@ document.getElementById("confirm-btn").addEventListener("click", async () => {
     errorEl.style.display = "block";
     return;
   }
+  if (!document.getElementById("consent-checkbox").checked) {
+    errorEl.textContent = "Please agree to the Terms & Conditions and Privacy Policy to continue.";
+    errorEl.style.display = "block";
+    return;
+  }
 
   const priceCharged = computePrice(Number(currentService.price), selectedSlot.is_extended, selectedLocation);
 
@@ -311,6 +317,8 @@ document.getElementById("confirm-btn").addEventListener("click", async () => {
     payment_proof_url: proofUrl,
     selected_image_url: selectedImageUrl,
     location_type: selectedLocation,
+    agreed_to_terms: true,
+    agreed_to_terms_at: new Date().toISOString(),
     status: paymentMethod === "online_transfer" ? "pending_payment" : "confirmed",
   }).select().single();
 
