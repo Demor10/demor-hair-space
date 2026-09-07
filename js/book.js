@@ -303,7 +303,7 @@ document.getElementById("confirm-btn").addEventListener("click", async () => {
   confirmBtn.disabled = true;
   confirmBtn.textContent = "Booking…";
 
-  const { data, error } = await supabaseClient.from("bookings").insert({
+  const { error } = await supabaseClient.from("bookings").insert({
     service_id: currentService.id,
     customer_name: name,
     customer_email: email,
@@ -320,7 +320,7 @@ document.getElementById("confirm-btn").addEventListener("click", async () => {
     agreed_to_terms: true,
     agreed_to_terms_at: new Date().toISOString(),
     status: paymentMethod === "online_transfer" ? "pending_payment" : "confirmed",
-  }).select().single();
+  });
 
   confirmBtn.disabled = false;
   confirmBtn.textContent = "Confirm Booking";
