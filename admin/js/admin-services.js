@@ -3,6 +3,7 @@
 // ============================================================
 
 let activeAlbumServiceId = null;
+let editingServiceId = null;
 
 async function uploadImageFile(file) {
   const filePath = `${Date.now()}_${Math.random().toString(36).slice(2)}_${file.name}`;
@@ -33,7 +34,7 @@ async function loadServices() {
     const cover = images[0]?.image_url;
     const isTop3 = index < 3;
     return `
-    <tr data-id="${s.id}" data-order="${s.display_order ?? index}">
+    <tr data-id="${s.id}" data-order="${s.display_order ?? index}" data-price="${s.price}" data-desc="${(s.description || "").replace(/"/g, '&quot;')}">
       <td>
         <div style="display:flex; align-items:center; gap:6px;">
           <button class="btn-sm" data-action="move-up" ${index === 0 ? "disabled" : ""} title="Move up">↑</button>
@@ -47,6 +48,7 @@ async function loadServices() {
       <td>${s.is_active ? "Yes" : "No"}</td>
       <td>
         <button class="btn-sm" data-action="album" data-name="${s.name}">Photos (${images.length})</button>
+        <button class="btn-sm" data-action="edit">Edit</button>
         <button class="btn-sm" data-action="toggle">${s.is_active ? "Deactivate" : "Activate"}</button>
         <button class="btn-sm danger" data-action="delete">Delete</button>
       </td>
@@ -78,6 +80,32 @@ document.getElementById("add-service-btn").addEventListener("click", async () =>
   }
 
   const addBtn = document.getElementById("add-service-btn");
+
+  // ---------- EDIT MODE: update existing service, nothing is deleted ----------
+  if (editingServiceId) {
+    addBtn.disabled = true;
+    addBtn.textContent = "Saving…";
+
+    const { error } = await supabaseClient
+      .from("services")
+      .update({ name, price: Number(price), description: desc })
+      .eq("id", editingServiceId);
+
+    addBtn.disabled = false;
+    addBtn.textContent = "Add Service";
+
+    if (error) {
+      errorEl.textContent = "Couldn't save changes. Please try again.";
+      errorEl.style.display = "block";
+      return;
+    }
+
+    exitEditMode();
+    loadServices();
+    return;
+  }
+
+  // ---------- ADD MODE: create a new service ----------
   addBtn.disabled = true;
   addBtn.textContent = "Adding…";
 
@@ -120,6 +148,30 @@ document.getElementById("add-service-btn").addEventListener("click", async () =>
   fileInput.value = "";
   loadServices();
 });
+
+function enterEditMode(row) {
+  editingServiceId = row.dataset.id;
+  document.getElementById("new-name").value = row.querySelector("td:nth-child(3)").childNodes[0].textContent.trim();
+  document.getElementById("new-price").value = row.dataset.price;
+  document.getElementById("new-desc").value = row.dataset.desc;
+  document.getElementById("form-heading").textContent = "Edit style";
+  document.getElementById("add-service-btn").textContent = "Save Changes";
+  document.getElementById("cancel-edit-btn").style.display = "inline-flex";
+  document.getElementById("form-heading").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function exitEditMode() {
+  editingServiceId = null;
+  document.getElementById("new-name").value = "";
+  document.getElementById("new-price").value = "";
+  document.getElementById("new-desc").value = "";
+  document.getElementById("new-image").value = "";
+  document.getElementById("form-heading").textContent = "Add a new style";
+  document.getElementById("add-service-btn").textContent = "Add Service";
+  document.getElementById("cancel-edit-btn").style.display = "none";
+}
+
+document.getElementById("cancel-edit-btn").addEventListener("click", exitEditMode);
 
 async function openAlbum(serviceId, serviceName) {
   activeAlbumServiceId = serviceId;
@@ -215,6 +267,12 @@ document.addEventListener("click", async (e) => {
     const row = e.target.closest("tr");
     const targetRow = action === "move-up" ? row.previousElementSibling : row.nextElementSibling;
     if (targetRow) swapDisplayOrder(row, targetRow);
+    return;
+  }
+
+  if (action === "edit") {
+    const row = e.target.closest("tr");
+    enterEditMode(row);
     return;
   }
 
