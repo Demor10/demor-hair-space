@@ -156,8 +156,8 @@
   flex-shrink: 0;
 }
 
-@media (max-width: 480px) {
-  #chat-panel { width: calc(100vw - 32px); right: 16px; }
-  #chat-bubble-btn { right: 16px; }
+@media (max-width: 640px) {
+  #chat-panel { width: calc(100vw - 32px); right: 16px; bottom: 168px; }
+  #chat-bubble-btn { right: 16px; bottom: 86px; }
   #chat-help-label { display: none; }
 }

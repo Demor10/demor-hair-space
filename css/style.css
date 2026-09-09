@@ -417,3 +417,105 @@ footer.site-footer {
   .steps { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   Mobile Bottom Navigation
+   ============================================================ */
+#mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 62px;
+  background: var(--navy-900);
+  border-top: 1px solid var(--line);
+  z-index: 997;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.mbn-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+  color: rgba(247, 244, 238, 0.6);
+  font-size: 0.62rem;
+  flex: 1;
+  padding-top: 6px;
+}
+
+.mbn-item svg {
+  width: 21px;
+  height: 21px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mbn-item.active { color: var(--gold-400); }
+
+.mbn-book .mbn-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--gold-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -22px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+  border: 3px solid var(--navy-900);
+}
+
+.mbn-book .mbn-circle svg { stroke: var(--navy-950); width: 20px; height: 20px; }
+.mbn-book span { margin-top: 3px; }
+.mbn-book.active .mbn-circle { background: var(--gold-400); }
+
+@media (max-width: 640px) {
+  #mobile-bottom-nav { display: flex; }
+  body { padding-bottom: 62px; }
+}
+
+/* ============================================================
+   Mobile Hero Redesign
+   ============================================================ */
+@media (max-width: 640px) {
+  .hero { padding: 44px 0 40px; }
+  .hero::after { display: none; }
+  .hero-grid { gap: 24px; }
+  .eyebrow-mark { margin-bottom: 16px; font-size: 0.78rem; }
+  .hero h1 { font-size: 1.9rem; line-height: 1.15; margin-bottom: 16px; }
+  .hero p.lede { font-size: 0.98rem; margin-bottom: 26px; }
+  .hero-actions { flex-direction: column; gap: 10px; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .hero-badge { padding: 18px; }
+  .hero-badge .badge-row { font-size: 0.82rem; padding: 11px 0; }
+}
+
+/* ============================================================
+   Swipeable Service Cards on Mobile
+   ============================================================ */
+@media (max-width: 700px) {
+  .services-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .services-grid::-webkit-scrollbar { height: 6px; }
+  .services-grid::-webkit-scrollbar-thumb { background: var(--gold-500); border-radius: 4px; }
+  .service-card {
+    scroll-snap-align: start;
+    flex: 0 0 82%;
+    min-width: 82%;
+  }
+  .service-card .thumb { aspect-ratio: 4/3.2; }
+}
