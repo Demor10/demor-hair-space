@@ -37,8 +37,8 @@
       text-decoration: none;
     }
     #whatsapp-float-btn:hover { background: #1ebe5a; }
-    @media (max-width: 480px) {
-      #whatsapp-float-btn { left: 16px; width: 50px; height: 50px; }
+    @media (max-width: 640px) {
+      #whatsapp-float-btn { left: 16px; width: 50px; height: 50px; bottom: 86px; }
     }
   `;
   document.head.appendChild(style);
