@@ -15,7 +15,7 @@
 - AI chatbot widget for browsing/booking help, powered by the router
 - AI scheduling-suggestion logic in the admin panel, powered by the router
 
-## Setup you'll need to do (once, before going live)
+## Setup needed to do (once, before going live)
 
 ### 1. Supabase (database + admin login)
 1. Create a free project at supabase.com
@@ -53,5 +53,3 @@ Already noted for the booking flow build:
 - Customers can cancel/reschedule up to 30 minutes before their slot (enforced in app logic, to be added in Stage 2)
 - Payment is full amount, either online (manual bank transfer + admin verification) or in person
 
-## Recommended next step
-Open this folder in **Claude Code** and say "continue building Stage 2" — it can run the site locally, wire up Supabase live, and push directly to your GitHub repo as we go.
