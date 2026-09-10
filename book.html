@@ -46,6 +46,15 @@
       <div id="service-gallery" class="service-gallery"></div>
     </div>
 
+  </div>
+</section>
+
+<!-- Booking popup: opens once a style photo is picked, so the rest of the
+     process never requires scrolling past a long photo list -->
+<div id="booking-modal-overlay" class="booking-modal-overlay">
+  <div class="booking-modal">
+    <button id="booking-modal-close" class="booking-modal-close" aria-label="Close">✕</button>
+
     <!-- STEP 2: Location -->
     <div id="step-location" class="booking-step" style="display:none;">
       <h3>2. Where should we barber you?</h3>
@@ -118,10 +127,10 @@
     <div id="success-box" style="display:none;" class="success-box">
       <h3>Booking received 🎉</h3>
       <p id="success-msg"></p>
+      <button id="success-close-btn" class="btn btn-gold" style="margin-top:16px;">Done</button>
     </div>
-
   </div>
-</section>
+</div>
 
 </main>
 
