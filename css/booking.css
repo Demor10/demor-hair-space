@@ -17,16 +17,15 @@
 }
 
 .service-gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
   margin-bottom: 24px;
 }
 
 .service-gallery img {
   width: 100%;
-  max-width: 420px;
-  height: 320px;
+  height: 200px;
   object-fit: cover;
   border-radius: 8px;
   cursor: pointer;
@@ -40,6 +39,50 @@
 
 .service-gallery img.selected {
   border-color: var(--gold-500);
+}
+
+.booking-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,24,48,0.7);
+  z-index: 1002;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 16px;
+  overflow-y: auto;
+}
+
+.booking-modal-overlay.open { display: flex; }
+
+.booking-modal {
+  background: var(--cream-100);
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  padding: 28px 24px;
+  position: relative;
+  margin: 24px auto;
+}
+
+.booking-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: #fff;
+  border: 1px solid rgba(11,30,61,0.12);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--ink-600);
+  z-index: 1;
+}
+
+@media (max-width: 480px) {
+  .service-gallery img { height: 150px; }
+  .booking-modal { padding: 24px 16px; }
 }
 
 .booking-step {
