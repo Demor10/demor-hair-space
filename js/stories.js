@@ -32,7 +32,15 @@ async function loadStories() {
     </div>
   `).join("");
 
-  startAutoGlide(rack);
+  // On wide screens, 2-3 cards can fit entirely within view, leaving nothing
+  // to auto-scroll through. If that's the case, duplicate the set once so
+  // there's always visible sliding motion regardless of screen width.
+  requestAnimationFrame(() => {
+    if (rack.scrollWidth <= rack.clientWidth + 20 && data.length > 0) {
+      rack.innerHTML += rack.innerHTML;
+    }
+    startAutoGlide(rack);
+  });
 }
 
 function startAutoGlide(rack) {
