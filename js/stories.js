@@ -24,10 +24,10 @@ function storyCardHtml(s) {
       ${isLong ? `<button class="story-readmore" data-action="toggle-story">Read more</button>` : ""}
       <div class="story-author">— ${s.customer_name}</div>
       <div class="story-reactions">
-        <button class="story-react-btn ${likedAlready ? "reacted" : ""}" data-action="react-like" ${likedAlready ? "disabled" : ""}>
+        <button class="story-react-btn ${likedAlready ? "reacted" : ""}" data-action="react-like">
           👍 <span>${s.like_count || 0}</span>
         </button>
-        <button class="story-react-btn ${laughedAlready ? "reacted" : ""}" data-action="react-laugh" ${laughedAlready ? "disabled" : ""}>
+        <button class="story-react-btn ${laughedAlready ? "reacted" : ""}" data-action="react-laugh">
           😂 <span>${s.laugh_count || 0}</span>
         </button>
       </div>
@@ -107,7 +107,7 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// ---------- Reactions ----------
+// ---------- Reactions (toggleable) ----------
 document.addEventListener("click", async (e) => {
   const action = e.target.closest("[data-action='react-like'], [data-action='react-laugh']")?.dataset.action;
   if (!action) return;
@@ -116,21 +116,28 @@ document.addEventListener("click", async (e) => {
   const storyId = card.dataset.storyId;
   const type = action === "react-like" ? "like" : "laugh";
 
-  if (localStorage.getItem(reactedKey(storyId, type))) return;
+  const alreadyReacted = !!localStorage.getItem(reactedKey(storyId, type));
+  const delta = alreadyReacted ? -1 : 1;
 
   btn.disabled = true;
   const { data, error } = await supabaseClient.rpc("react_to_story", {
-    p_story_id: storyId, p_reaction: type,
+    p_story_id: storyId, p_reaction: type, p_delta: delta,
   });
+  btn.disabled = false;
 
   if (error) {
-    btn.disabled = false;
     console.error(error);
     return;
   }
 
-  localStorage.setItem(reactedKey(storyId, type), "1");
-  btn.classList.add("reacted");
+  if (alreadyReacted) {
+    localStorage.removeItem(reactedKey(storyId, type));
+    btn.classList.remove("reacted");
+  } else {
+    localStorage.setItem(reactedKey(storyId, type), "1");
+    btn.classList.add("reacted");
+  }
+
   const countEl = btn.querySelector("span");
   countEl.textContent = type === "like" ? data.like_count : data.laugh_count;
 });
