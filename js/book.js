@@ -61,8 +61,9 @@ async function loadService() {
       <img src="${img.image_url}" alt="${data.name}" data-url="${img.image_url}" class="gallery-img" />
     `).join("");
   } else {
-    // No photos uploaded for this style yet — skip straight to location choice
+    // No photos uploaded for this style yet — open the modal straight to location choice
     document.getElementById("step-location").style.display = "block";
+    document.getElementById("booking-modal-overlay").classList.add("open");
   }
 }
 
@@ -73,8 +74,20 @@ document.addEventListener("click", (e) => {
     e.target.classList.add("selected");
     selectedImageUrl = e.target.dataset.url;
     document.getElementById("step-location").style.display = "block";
-    document.getElementById("step-location").scrollIntoView({ behavior: "smooth", block: "center" });
+    document.getElementById("booking-modal-overlay").classList.add("open");
   }
+});
+
+document.getElementById("booking-modal-close").addEventListener("click", () => {
+  document.getElementById("booking-modal-overlay").classList.remove("open");
+});
+document.getElementById("booking-modal-overlay").addEventListener("click", (e) => {
+  if (e.target.id === "booking-modal-overlay") {
+    document.getElementById("booking-modal-overlay").classList.remove("open");
+  }
+});
+document.getElementById("success-close-btn")?.addEventListener("click", () => {
+  document.getElementById("booking-modal-overlay").classList.remove("open");
 });
 
 // ---------- Location selection ----------
