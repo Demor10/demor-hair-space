@@ -139,6 +139,21 @@
   color: var(--ink-600);
 }
 
+.star-picker {
+  display: flex;
+  gap: 6px;
+  font-size: 2rem;
+  margin: 12px 0 18px;
+}
+
+.star-picker .star {
+  color: #ddd;
+  cursor: pointer;
+  transition: color 0.1s ease;
+}
+
+.star-picker .star.filled { color: var(--gold-500); }
+
 @media (max-width: 600px) {
   .story-card { flex-basis: 260px; }
 }
