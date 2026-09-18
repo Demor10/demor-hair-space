@@ -86,7 +86,11 @@ function renderResults(bookings) {
         ${canManage ? `
           <button class="btn-sm" data-action="reschedule">Reschedule</button>
           <button class="btn-sm danger" data-action="cancel">Cancel Booking</button>
-        ` : b.status === "cancelled" || b.status === "completed" ? "" : `
+        ` : b.status === "cancelled" ? "" : b.status === "completed" ? (
+          b.reviewed
+            ? `<p class="muted" style="color:#1e7a43;">Thanks for your review! ✓</p>`
+            : `<button class="btn-sm" data-action="review">Leave a Review</button>`
+        ) : `
           <p class="muted" style="color:#b00020;">Less than 30 minutes to your appointment — please call or WhatsApp us directly for changes.</p>
         `}
       </div>
@@ -117,6 +121,71 @@ document.addEventListener("click", async (e) => {
     document.getElementById("reschedule-panel").style.display = "block";
     document.getElementById("reschedule-panel").scrollIntoView({ behavior: "smooth" });
   }
+
+  if (e.target.dataset.action === "review") {
+    activeReviewBooking = e.target.closest("[data-id]").dataset.id;
+    selectedRating = 0;
+    document.getElementById("review-comment").value = "";
+    document.getElementById("review-status").textContent = "";
+    renderStars(0);
+    document.getElementById("review-modal-overlay").classList.add("open");
+  }
+});
+
+// ---------- Review submission ----------
+let activeReviewBooking = null;
+let selectedRating = 0;
+
+function renderStars(rating) {
+  document.querySelectorAll("#star-picker .star").forEach(star => {
+    star.classList.toggle("filled", Number(star.dataset.value) <= rating);
+  });
+}
+
+document.getElementById("star-picker").addEventListener("click", (e) => {
+  if (!e.target.classList.contains("star")) return;
+  selectedRating = Number(e.target.dataset.value);
+  renderStars(selectedRating);
+});
+
+document.getElementById("review-modal-close").addEventListener("click", () => {
+  document.getElementById("review-modal-overlay").classList.remove("open");
+});
+document.getElementById("review-modal-overlay").addEventListener("click", (e) => {
+  if (e.target.id === "review-modal-overlay") e.target.classList.remove("open");
+});
+
+document.getElementById("review-submit-btn").addEventListener("click", async () => {
+  const statusEl = document.getElementById("review-status");
+  if (selectedRating < 1) {
+    statusEl.style.color = "#b00020";
+    statusEl.textContent = "Please select a star rating.";
+    return;
+  }
+
+  const btn = document.getElementById("review-submit-btn");
+  btn.disabled = true;
+  btn.textContent = "Submitting…";
+
+  const { error } = await supabaseClient.rpc("submit_review", {
+    p_booking_id: activeReviewBooking,
+    p_email: lookupEmail,
+    p_phone: lookupPhone,
+    p_rating: selectedRating,
+    p_comment: document.getElementById("review-comment").value.trim() || null,
+  });
+
+  btn.disabled = false;
+  btn.textContent = "Submit Review";
+
+  if (error) {
+    statusEl.style.color = "#b00020";
+    statusEl.textContent = error.message || "Couldn't submit your review. Please try again.";
+    return;
+  }
+
+  document.getElementById("review-modal-overlay").classList.remove("open");
+  document.getElementById("lookup-btn").click();
 });
 
 // ---------- Reschedule: date/slot picking (mirrors book.js logic) ----------
