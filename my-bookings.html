@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet" href="css/chatbot.css" />
 <link rel="stylesheet" href="css/booking.css" />
+<link rel="stylesheet" href="css/stories.css" />
 </head>
 <body>
 
@@ -49,6 +50,25 @@
     </div>
 
     <div id="results-container"></div>
+
+    <!-- Review modal -->
+    <div id="review-modal-overlay" class="story-modal-overlay">
+      <div class="story-modal">
+        <button id="review-modal-close" class="story-modal-close">✕</button>
+        <h3>How was your visit?</h3>
+        <div id="star-picker" class="star-picker">
+          <span class="star" data-value="1">★</span>
+          <span class="star" data-value="2">★</span>
+          <span class="star" data-value="3">★</span>
+          <span class="star" data-value="4">★</span>
+          <span class="star" data-value="5">★</span>
+        </div>
+        <label>Tell us more (optional)</label>
+        <textarea id="review-comment" class="input" rows="4" placeholder="What did you think?"></textarea>
+        <button id="review-submit-btn" class="btn btn-gold" style="margin-top:14px;">Submit Review</button>
+        <p id="review-status" class="muted" style="margin-top:10px;"></p>
+      </div>
+    </div>
 
     <!-- Reschedule panel (hidden until a booking chooses to reschedule) -->
     <div id="reschedule-panel" class="booking-step" style="display:none;">
