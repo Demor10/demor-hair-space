@@ -244,3 +244,21 @@ input[type="file"].input {
   font-size: 0.85rem;
   color: #8a2222;
 }
+
+.btn-sm {
+  padding: 9px 18px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: var(--cream-100);
+  color: var(--navy-900);
+  cursor: pointer;
+  margin-right: 8px;
+  margin-top: 10px;
+  box-shadow: var(--shadow-raised-sm);
+  transition: var(--transition-soft);
+}
+.btn-sm:hover { transform: translateY(-1px); background: var(--navy-900); color: #fff; }
+.btn-sm.danger { color: #a32323; }
+.btn-sm.danger:hover { background: #a32323; color: #fff; }
