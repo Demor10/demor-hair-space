@@ -2,6 +2,8 @@
 // Demor Hair Space — Admin: Bookings logic
 // ============================================================
 
+let cancelTargetId = null;
+
 function formatDisplayTime(timeStr) {
   const [h, m] = timeStr.split(":").map(Number);
   const period = h >= 12 ? "PM" : "AM";
@@ -47,7 +49,10 @@ async function loadBookings() {
         ${b.payment_method === "online_transfer" ? "Online transfer" : "In person"}
         ${b.payment_proof_url ? `<br><a href="${b.payment_proof_url}" target="_blank" style="font-size:0.8rem;">View proof</a>` : ""}
       </td>
-      <td><span class="status-pill status-${b.status}">${b.status.replace("_", " ")}</span></td>
+      <td>
+        <span class="status-pill status-${b.status}">${b.status.replace("_", " ")}</span>
+        ${b.status === "cancelled" && b.cancellation_reason ? `<div class="muted" style="max-width:160px; margin-top:4px;">"${b.cancellation_reason}"</div>` : ""}
+      </td>
       <td>
         ${b.status === "pending_payment" ? `<button class="btn-sm" data-action="confirm">Confirm</button>` : ""}
         ${b.status === "confirmed" ? `<button class="btn-sm" data-action="complete">Mark Done</button>` : ""}
@@ -63,18 +68,66 @@ document.addEventListener("click", async (e) => {
   const row = e.target.closest("tr");
   const id = row.dataset.id;
 
-  const statusMap = { confirm: "confirmed", complete: "completed", cancel: "cancelled" };
+  if (action === "cancel") {
+    cancelTargetId = id;
+    document.getElementById("cancel-reason-input").value = "";
+    document.getElementById("cancel-modal-overlay").classList.add("open");
+    return;
+  }
+
+  const statusMap = { confirm: "confirmed", complete: "completed" };
   const newStatus = statusMap[action];
+  if (!newStatus) return;
 
-  const updates = { status: newStatus };
-  if (newStatus === "cancelled") updates.cancelled_at = new Date().toISOString();
-
-  const { error } = await supabaseClient.from("bookings").update(updates).eq("id", id);
+  const { error } = await supabaseClient.from("bookings").update({ status: newStatus }).eq("id", id);
   if (error) {
     alert("Couldn't update booking. Please try again.");
     console.error(error);
     return;
   }
+  loadBookings();
+});
+
+document.getElementById("cancel-dismiss-btn").addEventListener("click", () => {
+  document.getElementById("cancel-modal-overlay").classList.remove("open");
+  cancelTargetId = null;
+});
+document.getElementById("cancel-modal-close").addEventListener("click", () => {
+  document.getElementById("cancel-modal-overlay").classList.remove("open");
+  cancelTargetId = null;
+});
+document.getElementById("cancel-modal-overlay").addEventListener("click", (e) => {
+  if (e.target.id === "cancel-modal-overlay") {
+    e.target.classList.remove("open");
+    cancelTargetId = null;
+  }
+});
+
+document.getElementById("cancel-confirm-btn").addEventListener("click", async () => {
+  if (!cancelTargetId) return;
+  const reason = document.getElementById("cancel-reason-input").value.trim();
+
+  const btn = document.getElementById("cancel-confirm-btn");
+  btn.disabled = true;
+  btn.textContent = "Cancelling…";
+
+  const { error } = await supabaseClient.from("bookings").update({
+    status: "cancelled",
+    cancelled_at: new Date().toISOString(),
+    cancellation_reason: reason || null,
+  }).eq("id", cancelTargetId);
+
+  btn.disabled = false;
+  btn.textContent = "Confirm Cancellation";
+
+  if (error) {
+    alert("Couldn't cancel this booking. Please try again.");
+    console.error(error);
+    return;
+  }
+
+  document.getElementById("cancel-modal-overlay").classList.remove("open");
+  cancelTargetId = null;
   loadBookings();
 });
 
