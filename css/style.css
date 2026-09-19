@@ -494,6 +494,66 @@ footer.site-footer {
 
 .mbn-item.active { color: var(--gold-400); }
 
+#mbn-more-btn.mbn-item {
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+#mbn-more-sheet {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+}
+
+#mbn-more-sheet.open { display: block; }
+
+#mbn-more-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10,24,48,0.55);
+}
+
+#mbn-more-panel {
+  position: absolute;
+  bottom: 62px;
+  left: 0;
+  right: 0;
+  background: var(--cream-100);
+  border-radius: 20px 20px 0 0;
+  padding: 10px 22px 26px;
+  box-shadow: 0 -12px 30px rgba(0,0,0,0.25);
+  animation: mbnSheetUp 0.22s ease;
+}
+
+@keyframes mbnSheetUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+#mbn-more-handle {
+  width: 36px;
+  height: 4px;
+  background: rgba(11,30,61,0.15);
+  border-radius: 4px;
+  margin: 8px auto 14px;
+}
+
+.mbn-more-link {
+  display: block;
+  padding: 14px 6px;
+  border-bottom: 1px solid rgba(11,30,61,0.08);
+  text-decoration: none;
+  color: var(--navy-900);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.mbn-more-link:last-child { border-bottom: none; }
+.mbn-more-link.active { color: var(--gold-700); }
+
 .mbn-book .mbn-circle {
   width: 46px;
   height: 46px;
