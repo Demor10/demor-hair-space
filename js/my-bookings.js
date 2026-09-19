@@ -70,6 +70,7 @@ function renderResults(bookings) {
   container.innerHTML = bookings.map(b => {
     const mins = minutesUntil(b.appointment_date, b.start_time);
     const canManage = mins >= 30 && b.status !== "cancelled" && b.status !== "completed";
+    const canRescheduleCancelled = b.status === "cancelled" && !!b.cancellation_reason;
     return `
       <div class="booking-step" data-id="${b.id}" data-location="${b.location_type}">
         <div style="display:flex; gap:16px; align-items:flex-start;">
@@ -83,10 +84,12 @@ function renderResults(bookings) {
         </p>
           </div>
         </div>
-        ${b.status === "cancelled" && b.cancellation_reason ? `<div class="cancellation-reason">Cancelled by us: "${b.cancellation_reason}"</div>` : ""}
+        ${b.status === "cancelled" && b.cancellation_reason ? `<div class="cancellation-reason">Cancelled by us: "${b.cancellation_reason}" — you're welcome to pick a new time below.</div>` : ""}
         ${canManage ? `
           <button class="btn-sm" data-action="reschedule">Reschedule</button>
           <button class="btn-sm danger" data-action="cancel">Cancel Booking</button>
+        ` : canRescheduleCancelled ? `
+          <button class="btn-sm" data-action="reschedule">Reschedule</button>
         ` : b.status === "cancelled" ? "" : b.status === "completed" ? (
           b.reviewed
             ? `<p class="muted" style="color:#1e7a43;">Thanks for your review! ✓</p>`
