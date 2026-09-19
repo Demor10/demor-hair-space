@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blog & Tips — Admin — Demor Hair Space</title>
+<link rel="icon" href="../assets/images/logo.png" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="brand-mini">Demor Admin</div>
+    <a href="bookings.html">Bookings</a>
+    <a href="services.html">Services & Prices</a>
+    <a href="hours.html">Hours & Availability</a>
+    <a href="insights.html">AI Insights</a>
+    <a href="stories.html">Customer Stories</a>
+    <a href="announcements.html">Announcements</a>
+    <a href="hero-media.html">Homepage Video</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="blog.html" class="active">Blog & Tips</a>
+    <button id="logout-btn" class="logout">Log out</button>
+  </aside>
+
+  <main class="admin-main">
+    <h1>Blog & Tips</h1>
+    <p class="subtitle">Share product reviews (clippers, trimmers, aftercare) or explain different haircut styles. Text, image, video, or any combination.</p>
+
+    <div class="admin-card">
+      <h3 id="form-heading" style="margin-top:0; font-family:var(--font-display); color:var(--navy-900);">New post</h3>
+      <label>Title</label>
+      <input type="text" id="post-title" class="input" placeholder="e.g. Wahl vs Andis: Which Clipper Actually Lasts Longer?" />
+      <label>Content</label>
+      <textarea id="post-body" class="input" rows="6" placeholder="Write your review or explanation here..."></textarea>
+      <label>Image (optional)</label>
+      <input type="file" id="post-image" class="input" accept="image/*" />
+      <label>Video (optional)</label>
+      <input type="file" id="post-video" class="input" accept="video/*" />
+      <p class="muted">You can include an image, a video, both, or neither — whatever fits the post.</p>
+      <button id="save-post-btn" class="btn btn-gold" style="margin-top:14px;">Publish Post</button>
+      <button id="cancel-post-edit-btn" class="btn-sm" style="display:none; margin-left:8px;">Cancel Edit</button>
+      <p id="post-status" class="muted" style="margin-top:10px;"></p>
+    </div>
+
+    <div class="admin-card">
+      <h3 style="margin-top:0; font-family:var(--font-display); color:var(--navy-900);">All posts</h3>
+      <div id="posts-list"><p class="muted">Loading…</p></div>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/config.js"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/admin-blog.js"></script>
+</body>
+</html>

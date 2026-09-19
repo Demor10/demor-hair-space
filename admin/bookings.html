@@ -7,6 +7,7 @@
 <link rel="icon" href="../assets/images/logo.png" />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="../css/booking.css" />
 <link rel="stylesheet" href="admin.css" />
 </head>
 <body class="admin-body">
@@ -22,6 +23,7 @@
     <a href="announcements.html">Announcements</a>
     <a href="hero-media.html">Homepage Video</a>
     <a href="reviews.html">Reviews</a>
+    <a href="blog.html">Blog & Tips</a>
     <button id="logout-btn" class="logout">Log out</button>
   </aside>
 
@@ -48,6 +50,20 @@
       </table>
     </div>
   </main>
+</div>
+
+<!-- Cancellation reason modal -->
+<div id="cancel-modal-overlay" class="booking-modal-overlay">
+  <div class="booking-modal" style="max-width:440px;">
+    <button id="cancel-modal-close" class="booking-modal-close">✕</button>
+    <h3 style="font-family:var(--font-display); color:var(--navy-900); margin-top:0;">Cancel this booking?</h3>
+    <p class="muted">Let the customer know why — this will be shown to them on their booking.</p>
+    <textarea id="cancel-reason-input" class="input" rows="4" placeholder="e.g. Barber unavailable due to an emergency, we'll reach out to reschedule you personally."></textarea>
+    <div style="display:flex; gap:10px; margin-top:16px;">
+      <button id="cancel-confirm-btn" class="btn-sm danger" style="padding:10px 18px;">Confirm Cancellation</button>
+      <button id="cancel-dismiss-btn" class="btn-sm" style="padding:10px 18px;">Never mind</button>
+    </div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
