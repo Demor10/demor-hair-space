@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Gallery — Demor Hair Space</title>
+<title>Blog & Tips — Demor Hair Space</title>
 <link rel="icon" href="assets/images/logo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css" />
-<link rel="stylesheet" href="css/gallery.css" />
 <link rel="stylesheet" href="css/chatbot.css" />
+<link rel="stylesheet" href="css/blog.css" />
 </head>
 <body>
 
@@ -38,21 +38,15 @@
 <section>
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">Just browsing?</div>
-      <h2>Style Gallery</h2>
-      <p>Take a look around — no need to book anything. When you're ready, head to Services to pick a look and get started.</p>
+      <div class="kicker">Tips &amp; Reviews</div>
+      <h2>Blog &amp; Tips</h2>
+      <p>Product reviews on clippers and grooming gear, plus explainers on different haircut styles.</p>
     </div>
-    <div id="gallery-container">
-      <p style="color:var(--ink-600);">Loading gallery…</p>
+    <div id="blog-feed">
+      <p style="color:var(--ink-600);">Loading posts…</p>
     </div>
   </div>
 </section>
-
-<!-- Lightbox for viewing a photo full-size -->
-<div id="lightbox" class="lightbox">
-  <span id="lightbox-close" class="lightbox-close">✕</span>
-  <img id="lightbox-img" src="" alt="" />
-</div>
 
 </main>
 
@@ -63,11 +57,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
 <script src="js/supabase-client.js"></script>
-<script src="js/gallery.js"></script>
+<script src="js/blog.js"></script>
 <script src="js/chatbot.js"></script>
 <script src="js/whatsapp-button.js"></script>
 <script src="js/mobile-bottom-nav.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 <script src="js/nav-toggle.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
