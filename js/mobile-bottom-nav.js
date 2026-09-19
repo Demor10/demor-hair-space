@@ -7,13 +7,12 @@
 
   const moreItems = [
     { href: "my-bookings.html", label: "My Bookings" },
-    { href: "blog.html", label: "Blog & Tips" },
+    { href: "blog.html", label: "Clippers' Blog" },
     { href: "about.html", label: "About Us" },
     { href: "index.html#contact", label: "Contact" },
-    { href: "privacy.html", label: "Privacy Policy" },
     { href: "terms.html", label: "Terms & Booking Policy" },
   ];
-  const morePaths = ["my-bookings.html", "blog.html", "about.html", "privacy.html", "terms.html"];
+  const morePaths = ["my-bookings.html", "blog.html", "about.html", "terms.html"];
   const isMoreActive = morePaths.includes(path);
 
   const items = [
