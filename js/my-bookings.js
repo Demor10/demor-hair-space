@@ -84,7 +84,7 @@ function renderResults(bookings) {
         </p>
           </div>
         </div>
-        ${b.status === "cancelled" && b.cancellation_reason ? `<div class="cancellation-reason">Cancelled by us: "${b.cancellation_reason}" — you're welcome to pick a new time below.</div>` : ""}
+        ${b.status === "cancelled" && b.cancellation_reason ? `<div class="cancellation-reason">Cancelled by us: "${b.cancellation_reason}" </div>` : ""}
         ${canManage ? `
           <button class="btn-sm" data-action="reschedule">Reschedule</button>
           <button class="btn-sm danger" data-action="cancel">Cancel Booking</button>
